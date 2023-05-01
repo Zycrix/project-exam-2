@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import * as s from "../../styles/home";
-import * as c from "../../styles/common";
+import * as s from "../../modules/styles/home";
+import * as c from "../../modules/styles/common";
 import VenueSearch from "./components/venueSearch";
-import useApi from "../../hooks/useApi";
-import venueFilter from "../../utils/topRatedFilter";
+import useApi from "../../modules/hooks/useApi";
+import venueFilter from "../../modules/utils/topRatedFilter";
+import TopRated from "../../modules/components/topRated";
 
 function App() {
   const { data, loading, error, errorMessage } = useApi(
@@ -11,8 +12,8 @@ function App() {
     "GET",
     null
   );
-  const sorted = venueFilter(data);
-  console.log(sorted);
+  const topRated = venueFilter(data);
+
   return (
     <>
       <div>
@@ -22,6 +23,7 @@ function App() {
       <s.VenueSearchContainer>
         <VenueSearch data={data} />
       </s.VenueSearchContainer>
+      <TopRated data={topRated} />
     </>
   );
 }

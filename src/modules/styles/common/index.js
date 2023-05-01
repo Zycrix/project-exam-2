@@ -35,10 +35,18 @@ export const CleanButton = styled.button`
   margin: 0;
   cursor: pointer;
 `;
+export const CardButton = styled(PrimaryButton)`
+  width: 100%;
+`;
 export const Main = styled.main`
   min-height: calc(100vh - 84px);
   box-sizing: border-box;
   overflow: hidden;
+  p {
+    font-family: ${fonts.text};
+    font-style: medium;
+    font-weight: 500;
+  }
 `;
 
 export const MainHeading = styled.h1`
@@ -46,7 +54,11 @@ export const MainHeading = styled.h1`
   text-align: center;
   font-family: ${fonts.strong};
 `;
-
+export const SecondaryHeading = styled.h2`
+  font-size: 1.7rem;
+  text-align: center;
+  font-family: ${fonts.regular};
+`;
 export const Text = styled.p`
   font-size: 1rem;
   font-family: ${fonts.text};

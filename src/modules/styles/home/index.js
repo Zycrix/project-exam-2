@@ -21,3 +21,122 @@ export const VenueSearchContainer = styled.div`
     }
   }
 `;
+
+export const TopRatedContainer = styled.section``;
+export const SliderContainer = styled.div`
+  width: 100%;
+  position: relative;
+  background-color: ${common.colors.primary};
+  height: 50vh;
+`;
+export const SliderCard = styled.div`
+  width: 60%;
+  border-radius: 1rem;
+  height: 40vh;
+  background-color: white;
+  position: absolute;
+  overflow: hidden;
+  display: none;
+  opacity: 0;
+  top: 5vh;
+  transition: all 0.5s ease-in-out;
+  &[data-state="active"] {
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    z-index: 3;
+  }
+  &[data-state="prev"] {
+    display: block;
+    left: -45%;
+    opacity: 1;
+  }
+  &[data-state="next"] {
+    display: block;
+    left: 85%;
+    opacity: 1;
+  }
+  h2 {
+    text-align: center;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .venue-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 2rem;
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+  .btn-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+`;
+export const SliderCardImage = styled.div`
+  width: 100%;
+  position: relative;
+  img {
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+  }
+  .perks {
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 0.7rem;
+    display: flex;
+    position: absolute;
+    max-width: 60%;
+    flex-wrap: wrap;
+    div {
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      background-color: red;
+      margin: 0.2rem;
+    }
+    .wifi {
+      background-color: ${common.colors.primary};
+    }
+    .parking {
+      background-color: ${common.colors.secondary};
+    }
+    .breakfast {
+      background-color: ${common.colors.third};
+    }
+    .pets {
+      background-color: ${common.colors.fourth};
+    }
+  }
+  .favorite {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 3rem;
+    width: 5vw;
+    height: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+`;
+export const SliderButton = styled.button`
+  top: 5vh;
+  position: absolute;
+  height: 40vh;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  &.next {
+    right: 0;
+  }
+  &.prev {
+    left: 0;
+  }
+`;

@@ -26,7 +26,7 @@ function App() {
     <>
       <s.Header>
         <s.Nav>
-          <s.LogoContainer>
+          <s.LogoContainer onClick={() => navigate("/")}>
             <s.Logo src={logo} alt="logo" />
           </s.LogoContainer>
           <s.IconContainer>

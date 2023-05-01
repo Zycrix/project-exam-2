@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import * as s from "../../../styles/home";
-import * as c from "../../../styles/common";
-import venueFilter from "../../../utils/venueSearchFilter";
+import * as s from "../../../modules/styles/home";
+import * as c from "../../../modules/styles/common";
+import venueFilter from "../../../modules/utils/venueSearchFilter";
 
 function App(props) {
   const [venues, setVenues] = useState("");
