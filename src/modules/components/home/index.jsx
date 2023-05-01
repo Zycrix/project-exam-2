@@ -3,6 +3,7 @@ import * as s from "../../styles/home";
 import * as c from "../../styles/common";
 import VenueSearch from "./components/venueSearch";
 import useApi from "../../hooks/useApi";
+import venueFilter from "../../utils/topRatedFilter";
 
 function App() {
   const { data, loading, error, errorMessage } = useApi(
@@ -10,7 +11,8 @@ function App() {
     "GET",
     null
   );
-  console.log(data);
+  const sorted = venueFilter(data);
+  console.log(sorted);
   return (
     <>
       <div>
