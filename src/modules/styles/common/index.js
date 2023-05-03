@@ -35,8 +35,11 @@ export const CleanButton = styled.button`
   margin: 0;
   cursor: pointer;
 `;
-export const CardButton = styled(PrimaryButton)`
+export const CardButton = styled(SecondaryButton)`
   width: 100%;
+`;
+export const ViewMoreButton = styled(PrimaryButton)`
+  width: 60%;
 `;
 export const Main = styled.main`
   min-height: calc(100vh - 84px);
@@ -58,6 +61,7 @@ export const SecondaryHeading = styled.h2`
   font-size: 1.7rem;
   text-align: center;
   font-family: ${fonts.regular};
+  margin-top: 2.5rem;
 `;
 export const Text = styled.p`
   font-size: 1rem;

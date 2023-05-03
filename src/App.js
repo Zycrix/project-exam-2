@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import MyVenues from "./pages/myVenues";
 import Profile from "./pages/profile";
 import AllVenues from "./pages/venues";
+import SpecificVenue from "./pages/specific";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="my-venues" element={<MyVenues />} />
         <Route path="profile" element={<Profile />} />
         <Route path="venues" element={<AllVenues />} />
+        <Route path="/specific/:id" element={<SpecificVenue />} />
       </Route>
     </Routes>
   );

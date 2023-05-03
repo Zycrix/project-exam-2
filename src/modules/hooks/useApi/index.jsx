@@ -32,7 +32,7 @@ function useApi(url, method, body) {
           const json = await data.json();
           setData(json);
           console.log("api");
-          window.localStorage.setItem("data", JSON.stringify(json));
+          // window.localStorage.setItem("data", JSON.stringify(json));
         } catch (e) {
           console.log(e);
           setError(true);

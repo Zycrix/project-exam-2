@@ -5,10 +5,11 @@ import VenueSearch from "./components/venueSearch";
 import useApi from "../../modules/hooks/useApi";
 import venueFilter from "../../modules/utils/topRatedFilter";
 import TopRated from "../../modules/components/topRated";
+import Recent from "../../modules/components/recent";
 
 function App() {
   const { data, loading, error, errorMessage } = useApi(
-    "https://api.noroff.dev/api/v1/holidaze/venues",
+    "https://api.noroff.dev/api/v1/holidaze/venues?sort=updated",
     "GET",
     null
   );
@@ -24,6 +25,7 @@ function App() {
         <VenueSearch data={data} />
       </s.VenueSearchContainer>
       <TopRated data={topRated} />
+      <Recent data={data} />
     </>
   );
 }

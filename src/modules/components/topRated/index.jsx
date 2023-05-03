@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/home";
+import Card from "../card";
 
 function App(props) {
   function next(e) {
@@ -53,52 +54,13 @@ function App(props) {
         </s.SliderButton>
         {props.data.map((venue, i) => {
           return (
-            <s.SliderCard
-              data-index={i}
-              data-state={
-                i === 0
-                  ? "active"
-                  : undefined || i === 1
-                  ? "next"
-                  : undefined || i === props.data.length - 1
-                  ? "prev"
-                  : undefined
-              }
+            <Card
+              venue={venue}
+              i={i}
               key={venue.id}
-            >
-              <s.SliderCardImage>
-                <img src={venue.media[0]} alt={venue.name} />
-                <div class="perks">
-                  {venue.meta.wifi ? <div class="wifi">WIFI</div> : null}
-                  {venue.meta.parking ? (
-                    <div class="parking">PARKING</div>
-                  ) : null}
-                  {venue.meta.breakfast ? (
-                    <div class="breakfast">BREAKFAST</div>
-                  ) : null}
-                  {venue.meta.pets ? <div class="pets">PETS</div> : null}
-                </div>
-                <div class="favorite">
-                  <span class="material-symbols-outlined">favorite</span>
-                </div>
-              </s.SliderCardImage>
-              <h2>
-                {venue.name.length < 23 ? venue.name : venue.name.slice(0, 23)}
-              </h2>
-              <div class="venue-info">
-                <div class="venue-price">
-                  <p>Price</p>
-                  <p>{venue.price}$</p>
-                </div>
-                <div class="venue-rating">
-                  <p>Rating</p>
-                  <p>{venue.rating}/5</p>
-                </div>
-              </div>
-              <div class="btn-container">
-                <c.CardButton>View venue</c.CardButton>
-              </div>
-            </s.SliderCard>
+              data={props.data}
+              slider="true"
+            />
           );
         })}
         <s.SliderButton

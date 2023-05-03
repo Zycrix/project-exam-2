@@ -78,6 +78,7 @@ export const SliderCard = styled.div`
 export const SliderCardImage = styled.div`
   width: 100%;
   position: relative;
+  min-height: 20vh;
   img {
     width: 100%;
     height: 20vh;
@@ -132,11 +133,43 @@ export const SliderButton = styled.button`
   height: 40vh;
   border: none;
   background-color: rgba(255, 255, 255, 0.7);
-  z-index: 1;
+  z-index: 10;
   &.next {
     right: 0;
   }
   &.prev {
     left: 0;
+  }
+`;
+export const RecentContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin: 1rem auto 3rem;
+`;
+export const StandardCard = styled.div`
+  width: 80%;
+  border-radius: 1rem;
+  background-color: white;
+  margin: 1rem 0;
+  overflow: hidden;
+  height: 40vh;
+  h2 {
+    text-align: center;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .venue-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 2rem;
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+  .btn-container {
+    width: 90%;
+    margin: 0 auto;
   }
 `;
