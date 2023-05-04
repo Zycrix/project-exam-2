@@ -30,3 +30,21 @@ export const CheckboxLabel = styled.label``;
 export const LoginCheckbox = styled.input`
   width: 1rem;
 `;
+export const RadioContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  input,
+  label {
+    margin: 0;
+    padding: 0.5rem;
+  }
+`;
+export const RoleContainer = styled.div`
+  border: 1px solid lightgray;
+  box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+`;
