@@ -12,9 +12,11 @@ export const VenueSearchContainer = styled.div`
       border-radius: 2rem;
       box-sizing: border-box;
       width: 100%;
-      padding: 0.5rem 0.5rem;
       margin: 0.3rem 0;
-      border: 1px solid black;
+      /* border: 1px solid black; */
+      padding: 0.5rem;
+      box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
+      border: 1px solid lightgray;
       ::placeholder {
         color: rgba(0, 0, 0, 0.4);
       }

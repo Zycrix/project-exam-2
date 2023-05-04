@@ -26,7 +26,11 @@ export const SecondaryButton = styled(PrimaryButton)`
 `;
 export const FormButton = styled(PrimaryButton)`
   width: 100%;
-  margin: 0.3rem;
+  margin-top: 0.3rem;
+  box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
+`;
+export const RegisterButton = styled(FormButton)`
+  background-color: ${colors.fourth};
 `;
 export const CleanButton = styled.button`
   background-color: transparent;
