@@ -33,7 +33,6 @@ export const LoginCheckbox = styled.input`
 export const RadioContainer = styled.div`
   display: flex;
   align-items: center;
-
   input,
   label {
     margin: 0;
@@ -47,4 +46,9 @@ export const RoleContainer = styled.div`
   border-radius: 1rem;
   padding: 1rem;
   box-sizing: border-box;
+`;
+export const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
