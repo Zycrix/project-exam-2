@@ -30,8 +30,7 @@ export const FormButton = styled(PrimaryButton)`
   box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
 `;
 export const RegisterButton = styled(FormButton)`
-  background-color: ${(props) =>
-    props.state === true ? colors.fourth : "red"};
+  background-color: ${colors.fourth};
   width: 60%;
 `;
 export const CleanButton = styled.button`

@@ -6,13 +6,10 @@ import useApi from "../../modules/hooks/useApi";
 import venueFilter from "../../modules/utils/topRatedFilter";
 import TopRated from "../../modules/components/topRated";
 import Recent from "../../modules/components/recent";
+import url from "../../modules/utils/urls/allVenues";
 
 function App() {
-  const { data, loading, error, errorMessage } = useApi(
-    "https://api.noroff.dev/api/v1/holidaze/venues?sort=updated",
-    "GET",
-    null
-  );
+  const { data, loading, error, errorMessage } = useApi(url, "GET", null);
   const topRated = venueFilter(data);
 
   return (

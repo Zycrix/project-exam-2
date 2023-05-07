@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as c from "../../styles/common";
 import * as s from "../../styles/login";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import callApi from "../../utils/apiCall";
+import url from "../../utils/urls/login";
+
 //Email validation regex
 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -30,6 +34,8 @@ const schema = yup.object({
 
 function App() {
   const [remember, setRemember] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -37,13 +43,28 @@ function App() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  function submitted(data) {
+  let body = {};
+  async function submitted(data) {
     const form = document.querySelector(".form");
-    console.log(remember);
-    setRemember(false);
-    console.log(data);
+    body = data;
+    console.log(body);
     console.log(errors);
     form.reset();
+    console.log(remember);
+    setRemember(false);
+    const result = await callApi(url, "POST", body);
+    if (result.accessToken) {
+      console.log(result);
+      if (remember) {
+        localStorage.setItem("token", result.accessToken);
+      } else {
+        sessionStorage.setItem("token", result.accessToken);
+      }
+      navigate("/");
+    } else {
+      setSuccess(result.errors[0].message);
+      console.log(result);
+    }
   }
 
   return (
@@ -51,7 +72,7 @@ function App() {
       onSubmit={handleSubmit((data) => submitted(data))}
       className="form"
     >
-      <p>{errors.email?.message}</p>
+      <p>{errors.email?.message || success}</p>
       <s.LoginInput type="text" placeholder="Username" {...register("email")} />
       <p>{errors.password?.message}</p>
       <s.LoginInput

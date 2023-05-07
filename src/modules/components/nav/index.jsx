@@ -16,8 +16,13 @@ function App() {
 
   useEffect(() => {
     function loginStatus() {
-      const token = localStorage.getItem("token");
-      setLoggedIn(token ? true : false);
+      if (localStorage.getItem("token")) {
+        setLoggedIn(true);
+      } else if (sessionStorage.getItem("token")) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
     }
     loginStatus();
   }, [navigate]);

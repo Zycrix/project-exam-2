@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as c from "../../modules/styles/common";
 import * as s from "../../modules/styles/login";
 import Login from "../../modules/components/login";
+import Register from "../../modules/components/register";
 
 function App() {
   const [login, setLogin] = useState(true);
@@ -14,7 +15,7 @@ function App() {
   return (
     <s.LoginContainer>
       <c.MainHeading>Log in</c.MainHeading>
-      {login ? <Login /> : <h1>Register</h1>}
+      {login ? <Login /> : <Register />}
 
       <c.RegisterButton onClick={(e) => toggleRegister(e)} state={login}>
         {login ? "Register" : "Log in"}
@@ -27,22 +28,10 @@ export default App;
 
 /* 
 
-function handleRoleChange(e) {
-  setRole(e.target.value);
-}
-
-function handleLogin(e) {
-  console.log("login");
-  console.log(e);
-}
 function handleRegister(e) {
   e.preventDefault();
 } */
-{
-  /* <c.RegisterButton onClick={(e) => toggleRegister(e)}>
-      Register
-    </c.RegisterButton> */
-}
+
 {
   /* <>
 <s.LoginInput type="text" placeholder="Username" />
