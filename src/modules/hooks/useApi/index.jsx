@@ -43,6 +43,7 @@ function useApi(url, method, body) {
       }
     }
     getData();
+    console.log(data);
   }, [url]);
   return { data, loading, error, errorMessage };
 }

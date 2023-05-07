@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function App(props) {
   const path = window.location.pathname;
-  console.log(props.source);
+
   function handleLogout() {
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");

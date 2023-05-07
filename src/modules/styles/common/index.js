@@ -19,6 +19,7 @@ export const PrimaryButton = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   cursor: pointer;
+  width: 100%;
 `;
 export const SecondaryButton = styled(PrimaryButton)`
   background-color: ${colors.fourth};
@@ -60,7 +61,7 @@ export const Main = styled.main`
 export const MainHeading = styled.h1`
   font-size: 1.7rem;
   text-align: center;
-  font-family: ${fonts.strong};
+  font-family: ${fonts.regular};
 `;
 export const SecondaryHeading = styled.h2`
   font-size: 1.7rem;

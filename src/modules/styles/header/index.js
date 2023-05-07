@@ -9,7 +9,7 @@ export const Header = styled.header`
 `;
 export const Nav = styled.nav`
   display: flex;
-  background-color: black;
+  background-color: white;
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
   padding: 1rem 0.5rem;
   justify-content: space-between;
@@ -37,7 +37,7 @@ export const Icon = styled.div`
     font-size: 2rem;
   }
   * {
-    color: white;
+    color: black;
   }
   cursor: pointer;
 `;
