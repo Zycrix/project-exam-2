@@ -8,10 +8,13 @@ import Dropdown from "./components/dropdown";
 function App() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [source, setSource] = useState("");
+
   const navigate = useNavigate();
 
-  function toggleDropdown() {
+  function toggleDropdown(source) {
     setOpen(!open);
+    setSource(source);
   }
 
   useEffect(() => {
@@ -37,11 +40,11 @@ function App() {
           <s.IconContainer>
             <s.Icon>
               {loggedIn ? (
-                <Link to="/account">
+                <c.CleanButton onClick={() => toggleDropdown("account")}>
                   <span className="material-symbols-outlined">
                     account_circle
                   </span>
-                </Link>
+                </c.CleanButton>
               ) : (
                 <Link to="/login" className="login">
                   <c.SecondaryButton>Log in</c.SecondaryButton>
@@ -49,14 +52,14 @@ function App() {
               )}
             </s.Icon>
             <s.Icon>
-              <c.CleanButton onClick={toggleDropdown}>
+              <c.CleanButton onClick={() => toggleDropdown("menu")}>
                 <span className="material-symbols-outlined">menu</span>
               </c.CleanButton>
             </s.Icon>
           </s.IconContainer>
         </s.Nav>
       </s.Header>
-      <Dropdown open={open} />
+      <Dropdown open={open} source={source} />
     </>
   );
 }

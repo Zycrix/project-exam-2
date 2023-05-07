@@ -89,3 +89,7 @@ export const Dropdown = styled.div`
     font-family: ${common.fonts.strong};
   }
 `;
+export const Text = styled.p`
+  font-size: 1.2rem;
+  font-family: ${common.fonts.text};
+`;
