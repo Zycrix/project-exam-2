@@ -63,4 +63,19 @@ export const BookingModalContent = styled.div`
 export const BookingForm = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  input {
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid black;
+  }
+  button {
+    margin-top: 1rem;
+  }
+`;
+export const BookingModalClose = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
 `;

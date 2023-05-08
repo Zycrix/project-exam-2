@@ -6,7 +6,9 @@ import Specific from "../../modules/components/specific";
 function App() {
   const id = window.location.pathname.split("/")[2];
   const endpoint = `${url}${id}`;
-  const { data, loading, error } = useApi(endpoint, "get", null);
+  console.log(endpoint);
+  const { data, loading, error, errorMessage } = useApi(endpoint, "GET", null);
+  console.log("errormessage", errorMessage);
   console.log(data);
   console.log(error);
   return <div>{loading ? <p>Loading...</p> : <Specific data={data} />}</div>;

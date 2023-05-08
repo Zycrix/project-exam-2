@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/specific";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App(props) {
   const data = props.data;
   const [BookingModal, setBookingModal] = useState(false);
-
-  console.log(data);
+  const [start, setStart] = useState(new Date());
+  const [end, setEnd] = useState(new Date());
+  const [guests, setGuests] = useState(undefined);
 
   function fixDate(created) {
     const day = created.slice(8, 10);
@@ -117,6 +120,43 @@ function App(props) {
       <s.BookingModal show={BookingModal}>
         <s.BookingModalContent>
           <c.SecondaryHeading>Book venue</c.SecondaryHeading>
+          <s.BookingForm>
+            <label htmlFor="start">Start date:</label>
+            <DatePicker
+              id="start"
+              selected={start}
+              onChange={(date) => setStart(date)}
+              selectsStart
+              startDate={start}
+              endDate={end}
+              dateFormat="dd/MM/yyyy"
+            />
+            <label htmlFor="end">End date:</label>
+            <DatePicker
+              id="end"
+              selected={end}
+              onChange={(date) => setEnd(date)}
+              selectsEnd
+              startDate={start}
+              endDate={end}
+              minDate={start}
+              dateFormat="dd/MM/yyyy"
+            />
+            <label htmlFor="guests">Number of guests:</label>
+            <input
+              type="number"
+              id="guests"
+              placeholder={"max guests: " + data.maxGuests}
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
+            />
+            <c.FormButton>Book</c.FormButton>
+          </s.BookingForm>
+          <s.BookingModalClose>
+            <c.CleanButton onClick={toggleBookingModal}>
+              <span className="material-symbols-outlined">close</span>
+            </c.CleanButton>
+          </s.BookingModalClose>
         </s.BookingModalContent>
       </s.BookingModal>
     </s.Container>
