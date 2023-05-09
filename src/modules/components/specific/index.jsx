@@ -1,40 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/specific";
-import DatePicker from "react-datepicker";
+import DatePicker, { addDays } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import getBooked from "../../utils/getBooked";
+import fixDate from "../../utils/fixDate";
+import locationAvailable from "../../utils/locationAvailable";
+import callApi from "../../utils/apiCall";
+import url from "../../utils/urls/bookings";
 
 function App(props) {
   const data = props.data;
+  const today = new Date();
+  const minDate = today.setDate(today.getDate() + 1);
   const [BookingModal, setBookingModal] = useState(false);
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
+  const [start, setStart] = useState(minDate);
+  const [end, setEnd] = useState(minDate);
   const [guests, setGuests] = useState(undefined);
+  const [success, setSuccess] = useState(false);
+  const booked = [];
 
-  function fixDate(created) {
-    const day = created.slice(8, 10);
-    const month = created.slice(5, 7);
-    const year = created.slice(0, 4);
-    const date = day + "/" + month + "/" + year;
-
-    return date;
-  }
-  function locationAvailable(data) {
-    if (
-      data.location?.address !== "Unknown" ||
-      data.location?.city !== "Unknown" ||
-      data.location.country !== "Unknown" ||
-      data.location.continent !== "Unknown" ||
-      data.location.zip !== "Unknown"
-    ) {
-      return true;
-    } else {
-      return false;
+  if (data?.bookings.length > 0) {
+    const temp = [];
+    for (let i = 0; i < data.bookings.length; i++) {
+      const startDate = data.bookings[i].dateFrom.slice(0, 10);
+      const endDate = data.bookings[i].dateTo.slice(0, 10);
+      temp.push(getBooked(startDate, endDate));
     }
+    temp.forEach((item) => {
+      //May create duplicates if someone don't check that new bookings are not duplicates but it wont affect the function of the datepicker so im just gonna leave it like this
+      item.forEach((date) => {
+        booked.push(date);
+      });
+    });
   }
 
   function toggleBookingModal() {
     setBookingModal(!BookingModal);
+  }
+
+  async function handleBooking(e) {
+    e.preventDefault();
+    const body = {
+      dateFrom: start,
+      dateTo: end,
+      guests: Number(guests),
+      venueId: props.id,
+    };
+    // const json = JSON.stringify(body);
+    // console.log(json);
+    const data = await callApi(url, "POST", body);
+    console.log(data);
+    if (data.id) {
+      toggleBookingModal();
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 1500);
+    }
   }
 
   return (
@@ -120,7 +143,7 @@ function App(props) {
       <s.BookingModal show={BookingModal}>
         <s.BookingModalContent>
           <c.SecondaryHeading>Book venue</c.SecondaryHeading>
-          <s.BookingForm>
+          <s.BookingForm onSubmit={(e) => handleBooking(e)}>
             <label htmlFor="start">Start date:</label>
             <DatePicker
               id="start"
@@ -129,7 +152,10 @@ function App(props) {
               selectsStart
               startDate={start}
               endDate={end}
+              minDate={today}
               dateFormat="dd/MM/yyyy"
+              excludeDates={booked}
+              required
             />
             <label htmlFor="end">End date:</label>
             <DatePicker
@@ -141,6 +167,8 @@ function App(props) {
               endDate={end}
               minDate={start}
               dateFormat="dd/MM/yyyy"
+              excludeDates={booked}
+              required
             />
             <label htmlFor="guests">Number of guests:</label>
             <input
@@ -148,7 +176,12 @@ function App(props) {
               id="guests"
               placeholder={"max guests: " + data.maxGuests}
               value={guests}
-              onChange={(e) => setGuests(e.target.value)}
+              onChange={(e) =>
+                e.target.value < data.maxGuests
+                  ? setGuests(e.target.value)
+                  : setGuests(data.maxGuests)
+              }
+              required
             />
             <c.FormButton>Book</c.FormButton>
           </s.BookingForm>
@@ -159,6 +192,9 @@ function App(props) {
           </s.BookingModalClose>
         </s.BookingModalContent>
       </s.BookingModal>
+      <s.SuccessModal show={success}>
+        <span className="material-symbols-outlined">done</span>
+      </s.SuccessModal>
     </s.Container>
   );
 }

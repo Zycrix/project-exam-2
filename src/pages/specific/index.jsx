@@ -5,13 +5,12 @@ import Specific from "../../modules/components/specific";
 
 function App() {
   const id = window.location.pathname.split("/")[2];
-  const endpoint = `${url}${id}`;
-  console.log(endpoint);
+  const endpoint = `${url}${id}?_bookings=true&_owner=true`;
   const { data, loading, error, errorMessage } = useApi(endpoint, "GET", null);
-  console.log("errormessage", errorMessage);
   console.log(data);
-  console.log(error);
-  return <div>{loading ? <p>Loading...</p> : <Specific data={data} />}</div>;
+  return (
+    <div>{loading ? <p>Loading...</p> : <Specific data={data} id={id} />}</div>
+  );
 }
 
 export default App;

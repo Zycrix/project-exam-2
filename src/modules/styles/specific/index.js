@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.section`
   display: flex;
@@ -78,4 +78,30 @@ export const BookingModalClose = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
+`;
+
+const modalFade = keyframes`
+  0% {opacity: 1;}
+  25% {opacity: 0.75;}
+  50% {opacity: 0.50;}
+  75% {opacity: 0.25;}
+  100% {opacity: 0;}
+`;
+
+export const SuccessModal = styled.div`
+  position: fixed;
+  display: ${(props) => (props.show ? "block" : "none")};
+  opacity: ${(props) => (props.show ? "1" : "0")};
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: rgb(89, 255, 133);
+  animation: ${modalFade} 2s;
+  animation-timing-function: linear;
+  span {
+    font-size: 4rem;
+  }
 `;

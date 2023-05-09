@@ -37,7 +37,6 @@ function useApi(url, method, body) {
     }
     getData();
   }, [url]);
-  console.log(data);
   return { data, loading, error, errorMessage };
 }
 
