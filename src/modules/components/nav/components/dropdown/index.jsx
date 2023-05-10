@@ -40,8 +40,8 @@ function App(props) {
       ) : (
         <ul>
           <li>
-            <Link to="/account" className={path === "/account" ? "active" : ""}>
-              Account
+            <Link to="/profile" className={path === "/profile" ? "active" : ""}>
+              Profile
             </Link>
           </li>
           <li>
