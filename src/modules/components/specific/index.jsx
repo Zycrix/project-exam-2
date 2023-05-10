@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/specific";
-import DatePicker, { addDays } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import getBooked from "../../utils/getBooked";
-import fixDate from "../../utils/fixDate";
-import locationAvailable from "../../utils/locationAvailable";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/bookings";
+import DetailsContainer from "../detailsSection";
+import OwnerSection from "../ownerSection";
 
 function App(props) {
   const data = props.data;
@@ -47,10 +47,7 @@ function App(props) {
       guests: Number(guests),
       venueId: props.id,
     };
-    // const json = JSON.stringify(body);
-    // console.log(json);
     const data = await callApi(url, "POST", body);
-    console.log(data);
     if (data.id) {
       toggleBookingModal();
       setSuccess(true);
@@ -84,62 +81,8 @@ function App(props) {
       <s.Description>
         <p>{data.description}</p>
       </s.Description>
-      <s.DetailsContainer>
-        {locationAvailable(data) ? (
-          <>
-            <h2>Location:</h2>
-            <s.DetailsGrid>
-              {data.location.address !== "Unknown" ? (
-                <>
-                  <div>Address:</div>
-                  <div>{data.location.address}</div>
-                </>
-              ) : null}
-              {data.location.city !== "Unknown" ? (
-                <>
-                  <div>City:</div>
-                  <div>{data.location.city}</div>
-                </>
-              ) : null}
-              {data.location.county !== "Unknown" ? (
-                <>
-                  <div>Country:</div>
-                  <div>{data.location.country}</div>
-                </>
-              ) : null}
-              {data.location.continent !== "Unknown" ? (
-                <>
-                  <div>Continent:</div>
-                  <div>{data.location.continent}</div>
-                </>
-              ) : null}
-              {data.location.zip !== "Unknown" ? (
-                <>
-                  <div>Zip:</div>
-                  <div>{data.location.zip}</div>
-                </>
-              ) : null}
-            </s.DetailsGrid>
-          </>
-        ) : null}
-        <h2>Details:</h2>
-        <s.DetailsGrid>
-          <div>Created:</div>
-          <div>{fixDate(data.created)}</div>
-          <div>Last updated:</div>
-          <div>{fixDate(data.updated)}</div>
-          <div>Max guests:</div>
-          <div>{data.maxGuests}</div>
-          <div>Wifi:</div>
-          <div>{data.meta.wifi ? "Included" : "Not included"}</div>
-          <div>Parking:</div>
-          <div>{data.meta.parking ? "Included" : "Not included"}</div>
-          <div>Breakfast:</div>
-          <div>{data.meta.breakfast ? "Included" : "Not included"}</div>
-          <div>Pets:</div>
-          <div>{data.meta.pets ? "Allowed" : "Not allowed"}</div>
-        </s.DetailsGrid>
-      </s.DetailsContainer>
+      <DetailsContainer data={data} />
+      <OwnerSection data={data.owner} />
       <s.BookingModal show={BookingModal}>
         <s.BookingModalContent>
           <c.SecondaryHeading>Book venue</c.SecondaryHeading>

@@ -9,6 +9,36 @@ export const Container = styled.section`
     width: 70%;
     margin: 0 auto;
   }
+  hr {
+    width: 80%;
+    background-color: black;
+    opacity: 1;
+    border: none;
+    height: 1px;
+  }
+`;
+export const OwnerContainer = styled.div`
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  margin: 1.5rem auto;
+  .owner-img-container {
+    width: 40%;
+    margin: 0 auto;
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+    }
+  }
+  h3 {
+    text-align: center;
+  }
+  button {
+    width: 60%;
+    margin: 0 auto;
+  }
 `;
 export const ImgContainer = styled.div`
   width: 100%;
