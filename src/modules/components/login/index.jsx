@@ -57,8 +57,10 @@ function App() {
       console.log(result);
       if (remember) {
         localStorage.setItem("token", result.accessToken);
+        localStorage.setItem("name", result.name);
       } else {
         sessionStorage.setItem("token", result.accessToken);
+        sessionStorage.setItem("name", result.name);
       }
       navigate("/");
     } else {

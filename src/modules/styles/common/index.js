@@ -76,3 +76,9 @@ export const Text = styled.p`
 export const CenteredText = styled(Text)`
   text-align: center;
 `;
+export const StandardInput = styled.input`
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid black;
+`;

@@ -7,9 +7,14 @@ async function callApi(url, method, body) {
       },
       body: JSON.stringify(body),
     };
-    if (window.localStorage.getItem("token")) {
+    if (
+      window.localStorage.getItem("token") ||
+      window.sessionStorage.getItem("token")
+    ) {
       options.headers["Authorization"] =
-        "Bearer " + window.localStorage.getItem("token");
+        "Bearer " +
+        (window.localStorage.getItem("token") ||
+          window.sessionStorage.getItem("token"));
     }
     const response = await fetch(url, options);
     const data = await response.json();

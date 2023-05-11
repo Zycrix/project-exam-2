@@ -1,0 +1,97 @@
+import styled from "styled-components";
+import * as common from "../common";
+export const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  align-items: center;
+  position: relative;
+  .img-container {
+    width: 60%;
+    overflow: hidden;
+    margin: 1.5rem auto;
+    position: relative;
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+    }
+  }
+  h1 {
+    text-transform: capitalize;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+`;
+export const Overlay = styled.div`
+  display: ${(props) => (props.show ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 109;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+export const OverlayContent = styled.div`
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 110;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+export const PreviewContainer = styled.div`
+  display: ${(props) => (props.show ? "block" : "none")};
+  margin: 1.5rem auto;
+`;
+export const ImgContainer = styled.div`
+  width: 100%;
+  overflow: hidden;
+  img {
+    max-width: 100%;
+  }
+`;
+export const CloseContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+export const EditContainer = styled.div`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  width: 2rem;
+  aspect-ratio: 1/1 !important;
+  background-color: ${common.colors.primary};
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+`;
+export const VenueSection = styled.section`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  flex-direction: column;
+`;
+export const VenueCard = styled.div`
+  width: 100%;
+  display: flex;
+  background-color: white;
+  margin: 1rem 0;
+  .venue-img-container {
+    max-width: 30%;
+    overflow: hidden;
+    height: 100%;
+    img {
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+`;

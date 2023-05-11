@@ -19,7 +19,15 @@ function useApi(url, method, body) {
         if (body !== null) {
           options.body = JSON.stringify(body);
         }
-
+        if (
+          window.localStorage.getItem("token") ||
+          window.sessionStorage.getItem("token")
+        ) {
+          options.headers.Authorization = `Bearer ${
+            window.localStorage.getItem("token") ||
+            window.sessionStorage.getItem("token")
+          }`;
+        }
         setLoading(true);
         setError(false);
 
@@ -37,7 +45,7 @@ function useApi(url, method, body) {
     }
     getData();
   }, [url]);
-  return { data, loading, error, errorMessage };
+  return { data, setData, loading, error, errorMessage };
 }
 
 export default useApi;

@@ -15,7 +15,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="my-venues" element={<MyVenues />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="/profile/:name" element={<Profile />} />
         <Route path="venues" element={<AllVenues />} />
         <Route path="/specific/:id" element={<SpecificVenue />} />
       </Route>
