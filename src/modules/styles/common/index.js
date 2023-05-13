@@ -56,6 +56,13 @@ export const Main = styled.main`
     font-style: medium;
     font-weight: 500;
   }
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  .error {
+    color: red;
+  }
 `;
 
 export const MainHeading = styled.h1`

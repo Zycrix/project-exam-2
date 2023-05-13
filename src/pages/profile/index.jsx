@@ -15,7 +15,8 @@ function App() {
   const [user, setUser] = useState(false);
   const { data, setData, loading, error, errorMessage } = useApi(
     endpoint,
-    "GET"
+    "GET",
+    null
   );
 
   console.log(data);
@@ -55,18 +56,29 @@ function App() {
       <c.Text>{data.email}</c.Text>
       <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
       <s.VenueSection show={data.venueManager}>
-        <c.MainHeading>Venues</c.MainHeading>
-        {data.venues.map((venue) => (
-          <s.VenueCard key={venue._id}>
-            <div className="venue-img-container">
-              <img src={venue.media[0]} alt="venue" />
-            </div>
-            <div className="info">
-              <h3>{venue.name}</h3>
-              <c.Text>{venue.rating}</c.Text>
-            </div>
-          </s.VenueCard>
-        ))}
+        {data?.venues?.length > 0 ? (
+          <c.MainHeading>Venues</c.MainHeading>
+        ) : null}
+        {data?.venues?.length > 0
+          ? data.venues.map((venue) => (
+              <s.VenueCard key={venue._id}>
+                <div className="venue-img-container">
+                  <img src={venue.media[0]} alt="venue" />
+                </div>
+                <div className="info">
+                  <h3>{venue.name}</h3>
+                  <div className="flex">
+                    <c.Text>Rating:</c.Text>
+                    <c.Text>{venue.rating}/5</c.Text>
+                  </div>
+                  <div className="flex">
+                    <c.Text>Price:</c.Text>
+                    <c.Text>{venue.price}$</c.Text>
+                  </div>
+                </div>
+              </s.VenueCard>
+            ))
+          : null}
       </s.VenueSection>
       <s.Overlay show={editModal}>
         <s.OverlayContent>

@@ -5,7 +5,6 @@ async function callApi(url, method, body) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
     };
     if (
       window.localStorage.getItem("token") ||
@@ -15,6 +14,9 @@ async function callApi(url, method, body) {
         "Bearer " +
         (window.localStorage.getItem("token") ||
           window.sessionStorage.getItem("token"));
+    }
+    if (body) {
+      options.body = JSON.stringify(body);
     }
     const response = await fetch(url, options);
     const data = await response.json();

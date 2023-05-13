@@ -7,11 +7,34 @@ import venueFilter from "../../modules/utils/topRatedFilter";
 import TopRated from "../../modules/components/topRated";
 import Recent from "../../modules/components/recent";
 import url from "../../modules/utils/urls/allVenues";
+import callApi from "../../modules/utils/apiCall";
 
 function App() {
-  const { data, loading, error, errorMessage } = useApi(url, "GET", null);
-  const topRated = venueFilter(data);
+  let endpoint = url;
 
+  const { data, setData, loading, error, errorMessage } = useApi(
+    endpoint,
+    "GET",
+    null
+  );
+
+  async function getAllResults() {
+    if (data.length === 100) {
+      let offset = 100;
+      for (let i = 0; i < 20; i++) {
+        endpoint = url + `&offset=${offset}`;
+        const response = await callApi(endpoint, "GET", null);
+        setData([...data, ...response]);
+        offset += 100;
+        if (response.length < 100) {
+          break;
+        }
+      }
+    }
+  }
+  getAllResults();
+  const topRated = venueFilter(data);
+  console.log(data);
   return (
     <>
       <div>

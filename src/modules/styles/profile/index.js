@@ -84,14 +84,25 @@ export const VenueCard = styled.div`
   display: flex;
   background-color: white;
   margin: 1rem 0;
+  height: 15vh;
   .venue-img-container {
-    max-width: 30%;
+    width: 80%;
     overflow: hidden;
-    height: 100%;
+    min-height: 100%;
     img {
-      max-width: 100%;
+      width: 100%;
       height: 100%;
       object-fit: cover;
     }
+  }
+  h3 {
+    margin: 0.5rem;
+  }
+  p {
+    margin: 0.5rem;
+  }
+  .info {
+    padding: 0.5rem;
+    width: 100%;
   }
 `;
