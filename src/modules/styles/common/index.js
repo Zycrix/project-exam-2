@@ -59,6 +59,7 @@ export const Main = styled.main`
   .flex {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .error {
     color: red;

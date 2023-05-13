@@ -10,34 +10,34 @@ function App(props) {
         <>
           <h2>Location:</h2>
           <s.DetailsGrid>
-            {data.location.address !== "Unknown" ? (
+            {data?.location?.address !== "Unknown" ? (
               <>
                 <div>Address:</div>
-                <div>{data.location.address}</div>
+                <div>{data?.location?.address}</div>
               </>
             ) : null}
-            {data.location.city !== "Unknown" ? (
+            {data?.location?.city !== "Unknown" ? (
               <>
                 <div>City:</div>
-                <div>{data.location.city}</div>
+                <div>{data?.location?.city}</div>
               </>
             ) : null}
-            {data.location.county !== "Unknown" ? (
+            {data?.location?.county !== "Unknown" ? (
               <>
                 <div>Country:</div>
-                <div>{data.location.country}</div>
+                <div>{data?.location?.country}</div>
               </>
             ) : null}
-            {data.location.continent !== "Unknown" ? (
+            {data?.location?.continent !== "Unknown" ? (
               <>
                 <div>Continent:</div>
-                <div>{data.location.continent}</div>
+                <div>{data?.location?.continent}</div>
               </>
             ) : null}
-            {data.location.zip !== "Unknown" ? (
+            {data?.location?.zip !== "Unknown" ? (
               <>
                 <div>Zip:</div>
-                <div>{data.location.zip}</div>
+                <div>{data?.location?.zip}</div>
               </>
             ) : null}
           </s.DetailsGrid>

@@ -3,7 +3,7 @@ import * as common from "../common";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   align-items: center;
   position: relative;
@@ -79,12 +79,17 @@ export const VenueSection = styled.section`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
 `;
+export const BookingSection = styled.section`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  flex-direction: column;
+`;
 export const VenueCard = styled.div`
   width: 100%;
   display: flex;
   background-color: white;
   margin: 1rem 0;
-  height: 15vh;
+  min-height: 15vh;
+  max-height: 20vh;
   .venue-img-container {
     width: 80%;
     overflow: hidden;
@@ -104,5 +109,36 @@ export const VenueCard = styled.div`
   .info {
     padding: 0.5rem;
     width: 100%;
+    .options {
+      position: relative;
+      .show {
+        display: block;
+      }
+    }
+  }
+`;
+export const BookingCard = styled(VenueCard)`
+  p {
+    font-size: 0.8rem !important;
+    margin: 0 0.5rem;
+  }
+`;
+export const OptionsOverlay = styled.div`
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 25px;
+  border: 1px solid lightgray;
+  border-radius: 1rem 0 1rem 1rem;
+  right: 0;
+  background-color: ${common.colors.primary};
+  padding: 0.5rem;
+  width: 7rem;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+    }
   }
 `;

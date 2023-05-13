@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/specific";
 import DatePicker from "react-datepicker";
@@ -19,8 +19,9 @@ function App(props) {
   const [guests, setGuests] = useState(undefined);
   const [success, setSuccess] = useState(false);
   const booked = [];
+  const [error, setError] = useState(true);
 
-  if (data?.bookings.length > 0) {
+  if (data?.bookings?.length > 0) {
     const temp = [];
     for (let i = 0; i < data.bookings.length; i++) {
       const startDate = data.bookings[i].dateFrom.slice(0, 10);
@@ -59,85 +60,91 @@ function App(props) {
 
   return (
     <s.Container>
-      <s.ImgContainer>
-        <img src={data.media?.[0]} alt="The venue" />
-      </s.ImgContainer>
-      <c.MainHeading>{data.name}</c.MainHeading>
-      <div className="info">
-        <div className="price">
-          <p>Price:</p>
-          <p>{data.price}$</p>
-        </div>
-        <div className="rating">
-          <p>Rating:</p>
-          <p>{data.rating}/5</p>
-        </div>
-      </div>
-      <s.BookContainer>
-        <c.PrimaryButton onClick={toggleBookingModal}>
-          Book venue
-        </c.PrimaryButton>
-      </s.BookContainer>
-      <s.Description>
-        <p>{data.description}</p>
-      </s.Description>
-      <DetailsContainer data={data} />
-      <OwnerSection data={data.owner} />
-      <s.BookingModal show={BookingModal}>
-        <s.BookingModalContent>
-          <c.SecondaryHeading>Book venue</c.SecondaryHeading>
-          <s.BookingForm onSubmit={(e) => handleBooking(e)}>
-            <label htmlFor="start">Start date:</label>
-            <DatePicker
-              id="start"
-              selected={start}
-              onChange={(date) => setStart(date)}
-              selectsStart
-              startDate={start}
-              endDate={end}
-              minDate={today}
-              dateFormat="dd/MM/yyyy"
-              excludeDates={booked}
-              required
-            />
-            <label htmlFor="end">End date:</label>
-            <DatePicker
-              id="end"
-              selected={end}
-              onChange={(date) => setEnd(date)}
-              selectsEnd
-              startDate={start}
-              endDate={end}
-              minDate={start}
-              dateFormat="dd/MM/yyyy"
-              excludeDates={booked}
-              required
-            />
-            <label htmlFor="guests">Number of guests:</label>
-            <input
-              type="number"
-              id="guests"
-              placeholder={"max guests: " + data.maxGuests}
-              value={guests}
-              onChange={(e) =>
-                e.target.value < data.maxGuests
-                  ? setGuests(e.target.value)
-                  : setGuests(data.maxGuests)
-              }
-              required
-            />
-            <c.FormButton>Book</c.FormButton>
-          </s.BookingForm>
-          <s.BookingModalClose>
-            <c.CleanButton onClick={toggleBookingModal}>
-              <span className="material-symbols-outlined">close</span>
-            </c.CleanButton>
-          </s.BookingModalClose>
-        </s.BookingModalContent>
-      </s.BookingModal>
-      <s.SuccessModal show={success}>
-        <span className="material-symbols-outlined">done</span>
-      </s.SuccessModal>
+      {data?.errors ? (
+        <c.Text>{data.errors[0].message}</c.Text>
+      ) : (
+        <>
+          <s.ImgContainer>
+            <img src={data.media?.[0]} alt="The venue" />
+          </s.ImgContainer>
+          <c.MainHeading>{data.name}</c.MainHeading>
+          <div className="info">
+            <div className="price">
+              <p>Price:</p>
+              <p>{data.price}$</p>
+            </div>
+            <div className="rating">
+              <p>Rating:</p>
+              <p>{data.rating}/5</p>
+            </div>
+          </div>
+          <s.BookContainer>
+            <c.PrimaryButton onClick={toggleBookingModal}>
+              Book venue
+            </c.PrimaryButton>
+          </s.BookContainer>
+          <s.Description>
+            <p>{data.description}</p>
+          </s.Description>
+          <DetailsContainer data={data} />
+          <OwnerSection data={data.owner} />
+          <s.BookingModal show={BookingModal}>
+            <s.BookingModalContent>
+              <c.SecondaryHeading>Book venue</c.SecondaryHeading>
+              <s.BookingForm onSubmit={(e) => handleBooking(e)}>
+                <label htmlFor="start">Start date:</label>
+                <DatePicker
+                  id="start"
+                  selected={start}
+                  onChange={(date) => setStart(date)}
+                  selectsStart
+                  startDate={start}
+                  endDate={end}
+                  minDate={today}
+                  dateFormat="dd/MM/yyyy"
+                  excludeDates={booked}
+                  required
+                />
+                <label htmlFor="end">End date:</label>
+                <DatePicker
+                  id="end"
+                  selected={end}
+                  onChange={(date) => setEnd(date)}
+                  selectsEnd
+                  startDate={start}
+                  endDate={end}
+                  minDate={start}
+                  dateFormat="dd/MM/yyyy"
+                  excludeDates={booked}
+                  required
+                />
+                <label htmlFor="guests">Number of guests:</label>
+                <input
+                  type="number"
+                  id="guests"
+                  placeholder={"max guests: " + data.maxGuests}
+                  value={guests}
+                  onChange={(e) =>
+                    e.target.value < data.maxGuests
+                      ? setGuests(e.target.value)
+                      : setGuests(data.maxGuests)
+                  }
+                  required
+                />
+                <c.FormButton>Book</c.FormButton>
+              </s.BookingForm>
+              <s.BookingModalClose>
+                <c.CleanButton onClick={toggleBookingModal}>
+                  <span className="material-symbols-outlined">close</span>
+                </c.CleanButton>
+              </s.BookingModalClose>
+            </s.BookingModalContent>
+          </s.BookingModal>
+          <s.SuccessModal show={success}>
+            <span className="material-symbols-outlined">done</span>
+          </s.SuccessModal>
+        </>
+      )}
     </s.Container>
   );
 }

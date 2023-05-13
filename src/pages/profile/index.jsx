@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useApi from "../../modules/hooks/useApi";
 import url from "../../modules/utils/urls/profile";
 import * as s from "../../modules/styles/profile";
 import * as c from "../../modules/styles/common";
 import apiCall from "../../modules/utils/apiCall";
+import fixDate from "../../modules/utils/fixDate";
+import bookingUrl from "../../modules/utils/urls/bookings";
 
 function App() {
   const name = window.location.pathname.split("/")[2];
@@ -13,19 +16,19 @@ function App() {
   const [avatar, setAvatar] = useState("");
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState(false);
+  const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
   const { data, setData, loading, error, errorMessage } = useApi(
     endpoint,
     "GET",
     null
   );
 
-  console.log(data);
-
   useEffect(() => {
     if (userName === name) {
       setUser(true);
     }
-  }, []);
+  }, [data]);
   function handlePreview(e) {
     e.preventDefault();
     setPreview(!preview);
@@ -42,8 +45,29 @@ function App() {
       setData({ avatar: avatar });
     }
   }
+  function handleView(id) {
+    navigate("/specific/" + id);
+  }
+
+  async function handleCancel(id) {
+    const response = await apiCall(bookingUrl + id, "DELETE", null);
+    if (response) {
+      const newBookings = data.bookings.filter((item) => item.id !== id);
+      setData({ ...data, bookings: newBookings });
+    }
+  }
+
+  function handleOptions(e) {
+    e.preventDefault();
+    const dropdown = document.querySelectorAll(".options-dropdown");
+    const newArray = Array.from(dropdown);
+    const targetDropdown = newArray.filter(
+      (item) => item.dataset.id === e.target.dataset.id
+    );
+    targetDropdown[0].classList.toggle("show");
+  }
   return (
-    <s.Container>
+    <s.Container reload={reload}>
       <div className="img-container">
         <img src={data.avatar} alt="profile" />
         <s.EditContainer className="overlay" show={user}>
@@ -56,30 +80,96 @@ function App() {
       <c.Text>{data.email}</c.Text>
       <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
       <s.VenueSection show={data.venueManager}>
+        <c.MainHeading>Venues</c.MainHeading>
         {data?.venues?.length > 0 ? (
-          <c.MainHeading>Venues</c.MainHeading>
-        ) : null}
-        {data?.venues?.length > 0
-          ? data.venues.map((venue) => (
-              <s.VenueCard key={venue._id}>
+          data.venues.map((venue) => (
+            <s.VenueCard key={venue.id}>
+              <div className="venue-img-container">
+                <img src={venue.media[0]} alt="venue" />
+              </div>
+              <div className="info">
+                <h3>{venue.name.slice(0, 30)}</h3>
+                <div className="flex">
+                  <c.Text>Rating:</c.Text>
+                  <c.Text>{venue.rating}/5</c.Text>
+                </div>
+                <div className="flex">
+                  <c.Text>Price:</c.Text>
+                  <c.Text>{venue.price}$</c.Text>
+                </div>
+              </div>
+            </s.VenueCard>
+          ))
+        ) : (
+          <c.Text>No venues registered</c.Text>
+        )}
+      </s.VenueSection>
+      <s.BookingSection show={data?.bookings ? true : false}>
+        <c.SecondaryHeading>Bookings</c.SecondaryHeading>
+        {data?.bookings
+          ? data.bookings.map((booking) => (
+              <s.BookingCard key={booking.id}>
                 <div className="venue-img-container">
-                  <img src={venue.media[0]} alt="venue" />
+                  <img src={booking.venue.media[0]} alt="venue" />
                 </div>
                 <div className="info">
-                  <h3>{venue.name}</h3>
                   <div className="flex">
-                    <c.Text>Rating:</c.Text>
-                    <c.Text>{venue.rating}/5</c.Text>
+                    <h3>{booking.venue.name}</h3>
+                    {user ? (
+                      <div className="options">
+                        <c.CleanButton
+                          onClick={(e) => handleOptions(e)}
+                          data-id={booking.id}
+                        >
+                          <span
+                            className="material-symbols-outlined"
+                            data-id={booking.id}
+                          >
+                            more_vert
+                          </span>
+                        </c.CleanButton>
+                        <s.OptionsOverlay
+                          className="options-dropdown"
+                          data-id={booking.id}
+                        >
+                          <ul>
+                            <li>
+                              <c.CleanButton
+                                onClick={() => {
+                                  handleView(booking.venue.id);
+                                }}
+                              >
+                                View venue
+                              </c.CleanButton>
+                            </li>
+                            <li>
+                              <c.CleanButton>Update booking</c.CleanButton>
+                            </li>
+                            <li>
+                              <c.CleanButton
+                                onClick={(e) => {
+                                  handleCancel(booking.id);
+                                }}
+                              >
+                                Cancel booking
+                              </c.CleanButton>
+                            </li>
+                          </ul>
+                        </s.OptionsOverlay>
+                      </div>
+                    ) : null}
                   </div>
+                  <c.Text>Period: </c.Text>
                   <div className="flex">
-                    <c.Text>Price:</c.Text>
-                    <c.Text>{venue.price}$</c.Text>
+                    <c.Text>
+                      {fixDate(booking.dateFrom)} - {fixDate(booking.dateTo)}
+                    </c.Text>
                   </div>
                 </div>
-              </s.VenueCard>
+              </s.BookingCard>
             ))
           : null}
-      </s.VenueSection>
+      </s.BookingSection>
       <s.Overlay show={editModal}>
         <s.OverlayContent>
           <s.CloseContainer>

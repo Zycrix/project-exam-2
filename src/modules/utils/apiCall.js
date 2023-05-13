@@ -19,6 +19,9 @@ async function callApi(url, method, body) {
       options.body = JSON.stringify(body);
     }
     const response = await fetch(url, options);
+    if (method === "DELETE" && response.ok) {
+      return true;
+    }
     const data = await response.json();
     return data;
   } catch (e) {
