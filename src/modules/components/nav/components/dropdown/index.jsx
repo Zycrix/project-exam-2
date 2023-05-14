@@ -84,6 +84,17 @@ function App(props) {
               Profile
             </NavLink>
           </li>
+          {props.manager ? (
+            <li>
+              <NavLink
+                onClick={closeDropdown}
+                to={`/new-venue`}
+                className={path === "/new-venue" ? "active" : ""}
+              >
+                Create new venue
+              </NavLink>
+            </li>
+          ) : null}
           <li>
             <c.CleanButton onClick={handleLogout}>
               <s.Text>Log out</s.Text>

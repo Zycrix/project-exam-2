@@ -10,6 +10,8 @@ import url from "../../modules/utils/urls/allVenues";
 import callApi from "../../modules/utils/apiCall";
 
 function App() {
+  const title = document.querySelector("title");
+  title.innerHTML = "Holidaze | Home";
   let endpoint = url;
 
   const { data, setData, loading, error, errorMessage } = useApi(

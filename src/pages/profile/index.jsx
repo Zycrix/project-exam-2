@@ -23,6 +23,8 @@ function App() {
     "GET",
     null
   );
+  const title = document.querySelector("title");
+  title.innerHTML = `Holidaze | ${name}'s profile`;
 
   useEffect(() => {
     if (userName === name) {
@@ -104,9 +106,9 @@ function App() {
           <c.Text>No venues registered</c.Text>
         )}
       </s.VenueSection>
-      <s.BookingSection show={data?.bookings ? true : false}>
+      <s.BookingSection show={data?.bookings?.length > 0 ? true : false}>
         <c.SecondaryHeading>Bookings</c.SecondaryHeading>
-        {data?.bookings
+        {data?.bookings?.length > 0
           ? data.bookings.map((booking) => (
               <s.BookingCard key={booking.id}>
                 <div className="venue-img-container">

@@ -5,6 +5,8 @@ import Login from "../../modules/components/login";
 import Register from "../../modules/components/register";
 
 function App() {
+  const title = document.querySelector("title");
+  title.innerHTML = "Holidaze | Login";
   const [login, setLogin] = useState(true);
 
   function toggleRegister(e) {

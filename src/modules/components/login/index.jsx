@@ -58,9 +58,11 @@ function App() {
       if (remember) {
         localStorage.setItem("token", result.accessToken);
         localStorage.setItem("name", result.name);
+        localStorage.setItem("manager", result.venueManager);
       } else {
         sessionStorage.setItem("token", result.accessToken);
         sessionStorage.setItem("name", result.name);
+        sessionStorage.setItem("manager", result.venueManager);
       }
       navigate("/");
     } else {

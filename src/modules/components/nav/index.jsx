@@ -9,6 +9,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [source, setSource] = useState("");
+  const [isVenueManager, setIsVenueManager] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,10 +22,13 @@ function App() {
     function loginStatus() {
       if (localStorage.getItem("token")) {
         setLoggedIn(true);
+        setIsVenueManager(JSON.parse(localStorage.getItem("manager")));
       } else if (sessionStorage.getItem("token")) {
         setLoggedIn(true);
+        setIsVenueManager(JSON.parse(sessionStorage.getItem("manager")));
       } else {
         setLoggedIn(false);
+        setIsVenueManager(false);
       }
     }
     loginStatus();
@@ -59,7 +63,7 @@ function App() {
           </s.IconContainer>
         </s.Nav>
       </s.Header>
-      <Dropdown open={open} source={source} />
+      <Dropdown open={open} source={source} manager={isVenueManager} />
     </>
   );
 }
