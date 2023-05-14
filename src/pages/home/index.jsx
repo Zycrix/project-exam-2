@@ -36,7 +36,6 @@ function App() {
   }
   getAllResults();
   const topRated = venueFilter(data);
-  console.log(data);
   return (
     <>
       <div>

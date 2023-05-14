@@ -89,4 +89,5 @@ export const StandardInput = styled.input`
   padding: 0.5rem;
   margin: 0.5rem 0;
   border: 1px solid black;
+  font-family: ${fonts.text};
 `;
