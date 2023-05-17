@@ -22,6 +22,7 @@ function App(props) {
 
   useEffect(() => {
     setOpen(!open);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.open]);
 
   useEffect(() => {
