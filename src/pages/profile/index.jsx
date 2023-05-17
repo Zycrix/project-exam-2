@@ -7,6 +7,7 @@ import * as c from "../../modules/styles/common";
 import apiCall from "../../modules/utils/apiCall";
 import fixDate from "../../modules/utils/fixDate";
 import bookingUrl from "../../modules/utils/urls/bookings";
+import specificUrl from "../../modules/utils/urls/specific";
 import EditVenueFrom from "../../modules/components/editVenueForm";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   const title = document.querySelector("title");
   title.innerHTML = `Holidaze | ${name}'s profile`;
 
+  console.log(data);
   useEffect(() => {
     if (userName === name) {
       setUser(true);
@@ -73,6 +75,15 @@ function App() {
     setVenueId(id);
   }
 
+  async function handleDelete(id) {
+    const endpoint = specificUrl + id;
+    const result = await apiCall(endpoint, "DELETE", null);
+    console.log(result);
+  }
+
+  function handleViewBookings(id) {
+    console.log(id);
+  }
   return (
     <s.Container>
       <div className="img-container">
@@ -125,6 +136,15 @@ function App() {
                         </li>
                         <li>
                           <c.CleanButton
+                            onClick={() => {
+                              handleViewBookings(venue.id);
+                            }}
+                          >
+                            View bookings
+                          </c.CleanButton>
+                        </li>
+                        <li>
+                          <c.CleanButton
                             onClick={(e) => {
                               handleUpdate(e, venue.id);
                             }}
@@ -135,10 +155,10 @@ function App() {
                         <li>
                           <c.CleanButton
                             onClick={(e) => {
-                              handleCancel(venue.id);
+                              handleDelete(venue.id);
                             }}
                           >
-                            Cancel booking
+                            Delete venue
                           </c.CleanButton>
                         </li>
                       </ul>
