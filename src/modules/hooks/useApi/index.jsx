@@ -44,7 +44,7 @@ function useApi(url, method, body) {
       }
     }
     getData();
-  }, [url]);
+  }, [url, method, body]);
   return { data, setData, loading, error, errorMessage };
 }
 

@@ -22,7 +22,7 @@ function App(props) {
 
   useEffect(() => {
     setOpen(!open);
-  }, [props.open]);
+  }, [open]);
 
   useEffect(() => {
     setOpen(false);

@@ -2,7 +2,6 @@ function getBooked(start, end) {
   const booked = [];
   const startDate = new Date(start);
   const endDate = new Date(end);
-  const diff = endDate - startDate;
   const millisecondsPerDay = 1000 * 60 * 60 * 24;
   const days = Math.floor((endDate - startDate) / millisecondsPerDay);
   for (let i = 0; i < days + 1; i++) {

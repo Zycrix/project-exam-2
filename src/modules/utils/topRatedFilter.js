@@ -1,4 +1,5 @@
 export default function ratingFilter(data) {
+  if (data.errors) return false;
   const copy = data.slice();
   const filterResult = copy.sort((a, b) => {
     return b.rating - a.rating;

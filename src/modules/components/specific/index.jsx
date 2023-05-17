@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/specific";
 import DatePicker from "react-datepicker";
@@ -19,7 +19,6 @@ function App(props) {
   const [guests, setGuests] = useState(undefined);
   const [success, setSuccess] = useState(false);
   const booked = [];
-  const [error, setError] = useState(true);
 
   if (data?.bookings?.length > 0) {
     const temp = [];

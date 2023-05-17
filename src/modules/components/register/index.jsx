@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/login";
 import { useForm } from "react-hook-form";

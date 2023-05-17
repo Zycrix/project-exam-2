@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/home";
 import Card from "../card";

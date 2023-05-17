@@ -11,10 +11,6 @@ function App() {
   const [location, setLocation] = useState(false);
   const [images, setImages] = useState([]);
   const [image, setImage] = useState("");
-  const [wifi, setWifi] = useState(false);
-  const [parking, setParking] = useState(false);
-  const [breakfast, setBreakfast] = useState(false);
-  const [pets, setPets] = useState(false);
   const navigate = useNavigate();
   const {
     register,

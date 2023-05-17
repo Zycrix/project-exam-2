@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import React from "react";
 import * as common from "../common";
 
 export const Header = styled.header`

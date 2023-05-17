@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as s from "../../../modules/styles/home";
 import * as c from "../../../modules/styles/common";
 import venueFilter from "../../../modules/utils/venueSearchFilter";
 import { useNavigate } from "react-router-dom";

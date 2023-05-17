@@ -16,13 +16,8 @@ function App() {
   const [avatar, setAvatar] = useState("");
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState(false);
-  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
-  const { data, setData, loading, error, errorMessage } = useApi(
-    endpoint,
-    "GET",
-    null
-  );
+  const { data, setData } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
   title.innerHTML = `Holidaze | ${name}'s profile`;
 
@@ -30,7 +25,7 @@ function App() {
     if (userName === name) {
       setUser(true);
     }
-  }, [data]);
+  }, [data, name, userName]);
   function handlePreview(e) {
     e.preventDefault();
     setPreview(!preview);
@@ -69,7 +64,7 @@ function App() {
     targetDropdown[0].classList.toggle("show");
   }
   return (
-    <s.Container reload={reload}>
+    <s.Container>
       <div className="img-container">
         <img src={data.avatar} alt="profile" />
         <s.EditContainer className="overlay" show={user}>

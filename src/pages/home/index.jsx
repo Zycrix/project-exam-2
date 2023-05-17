@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as s from "../../modules/styles/home";
 import * as c from "../../modules/styles/common";
 import VenueSearch from "./components/venueSearch";
@@ -14,11 +14,7 @@ function App() {
   title.innerHTML = "Holidaze | Home";
   let endpoint = url;
 
-  const { data, setData, loading, error, errorMessage } = useApi(
-    endpoint,
-    "GET",
-    null
-  );
+  const { data, setData } = useApi(endpoint, "GET", null);
 
   async function getAllResults() {
     if (data.length === 100) {

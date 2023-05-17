@@ -1,6 +1,5 @@
 import React from "react";
 import * as c from "../../modules/styles/common";
-import * as s from "../../modules/styles/newVenue";
 import NewVenue from "../../modules/components/newVenueForm";
 
 function App(props) {
