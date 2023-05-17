@@ -2,7 +2,7 @@
   "name": "exam-2",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://zycrix.github.io/project-exam-2/",
+  "homepage": ".",
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "@testing-library/jest-dom": "^5.16.5",
