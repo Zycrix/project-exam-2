@@ -42,9 +42,17 @@ export const OverlayContent = styled.div`
   border-radius: 1rem;
   z-index: 110;
   position: absolute;
+  width: 90%;
+  box-sizing: border-box;
   top: 50%;
   left: 50%;
+  max-height: 90vh;
+  overflow-y: scroll;
   transform: translate(-50%, -50%);
+  form {
+    width: 100%;
+    box-sizing: border-box;
+  }
 `;
 export const PreviewContainer = styled.div`
   display: ${(props) => (props.show ? "block" : "none")};
@@ -90,6 +98,7 @@ export const VenueCard = styled.div`
   margin: 1rem 0;
   min-height: 15vh;
   max-height: 20vh;
+  position: relative;
   .venue-img-container {
     width: 80%;
     overflow: hidden;
@@ -110,7 +119,11 @@ export const VenueCard = styled.div`
     padding: 0.5rem;
     width: 100%;
     .options {
-      position: relative;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: white;
+      z-index: 99;
       .show {
         display: block;
       }

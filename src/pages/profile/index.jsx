@@ -7,12 +7,15 @@ import * as c from "../../modules/styles/common";
 import apiCall from "../../modules/utils/apiCall";
 import fixDate from "../../modules/utils/fixDate";
 import bookingUrl from "../../modules/utils/urls/bookings";
+import EditVenueFrom from "../../modules/components/editVenueForm";
 
 function App() {
-  const name = window.location.pathname.split("/")[2];
+  const name = window.location.href.split("/")[5];
   const endpoint = url + name + "?_bookings=true&_venues=true";
   const userName = window.sessionStorage.getItem("name");
-  const [editModal, setEditModal] = useState(false);
+  const [avatarModal, setAvatarModal] = useState(false);
+  const [venueModal, setVenueModal] = useState(false);
+  const [venueId, setVenueId] = useState("");
   const [avatar, setAvatar] = useState("");
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState(false);
@@ -25,7 +28,8 @@ function App() {
     if (userName === name) {
       setUser(true);
     }
-  }, [data, name, userName]);
+  }, [data, userName, name]);
+
   function handlePreview(e) {
     e.preventDefault();
     setPreview(!preview);
@@ -39,7 +43,7 @@ function App() {
     const avatarEndpoint = url + name + "/media";
     const response = await apiCall(avatarEndpoint, "PUT", body);
     if (response.avatar === avatar) {
-      setData({ avatar: avatar });
+      window.location.reload();
     }
   }
   function handleView(id) {
@@ -63,12 +67,18 @@ function App() {
     );
     targetDropdown[0].classList.toggle("show");
   }
+
+  function handleUpdate(e, id) {
+    setVenueModal(!venueModal);
+    setVenueId(id);
+  }
+
   return (
     <s.Container>
       <div className="img-container">
         <img src={data.avatar} alt="profile" />
         <s.EditContainer className="overlay" show={user}>
-          <c.CleanButton onClick={(e) => setEditModal(true)}>
+          <c.CleanButton onClick={(e) => setAvatarModal(true)}>
             <span className="material-symbols-outlined">edit</span>
           </c.CleanButton>
         </s.EditContainer>
@@ -86,6 +96,55 @@ function App() {
               </div>
               <div className="info">
                 <h3>{venue.name.slice(0, 30)}</h3>
+                {user ? (
+                  <div className="options">
+                    <c.CleanButton
+                      onClick={(e) => handleOptions(e)}
+                      data-id={venue.id}
+                    >
+                      <span
+                        className="material-symbols-outlined"
+                        data-id={venue.id}
+                      >
+                        more_vert
+                      </span>
+                    </c.CleanButton>
+                    <s.OptionsOverlay
+                      className="options-dropdown"
+                      data-id={venue.id}
+                    >
+                      <ul>
+                        <li>
+                          <c.CleanButton
+                            onClick={() => {
+                              handleView(venue.id);
+                            }}
+                          >
+                            View venue
+                          </c.CleanButton>
+                        </li>
+                        <li>
+                          <c.CleanButton
+                            onClick={(e) => {
+                              handleUpdate(e, venue.id);
+                            }}
+                          >
+                            Update venue
+                          </c.CleanButton>
+                        </li>
+                        <li>
+                          <c.CleanButton
+                            onClick={(e) => {
+                              handleCancel(venue.id);
+                            }}
+                          >
+                            Cancel booking
+                          </c.CleanButton>
+                        </li>
+                      </ul>
+                    </s.OptionsOverlay>
+                  </div>
+                ) : null}
                 <div className="flex">
                   <c.Text>Rating:</c.Text>
                   <c.Text>{venue.rating}/5</c.Text>
@@ -167,10 +226,10 @@ function App() {
             ))
           : null}
       </s.BookingSection>
-      <s.Overlay show={editModal}>
+      <s.Overlay show={avatarModal}>
         <s.OverlayContent>
           <s.CloseContainer>
-            <c.CleanButton onClick={(e) => setEditModal(false)}>
+            <c.CleanButton onClick={(e) => setAvatarModal(false)}>
               <span className="material-symbols-outlined">close</span>
             </c.CleanButton>
           </s.CloseContainer>
@@ -193,6 +252,17 @@ function App() {
               <img src={avatar} alt="preview" />
             </s.ImgContainer>
           </s.PreviewContainer>
+        </s.OverlayContent>
+      </s.Overlay>
+      <s.Overlay show={venueModal}>
+        <s.OverlayContent>
+          <s.CloseContainer>
+            <c.CleanButton onClick={(e) => setVenueModal(false)}>
+              <span className="material-symbols-outlined">close</span>
+            </c.CleanButton>
+          </s.CloseContainer>
+          <h2>Edit Venue</h2>
+          <EditVenueFrom id={venueId} data={data.venues || []} />
         </s.OverlayContent>
       </s.Overlay>
     </s.Container>

@@ -90,4 +90,6 @@ export const StandardInput = styled.input`
   margin: 0.5rem 0;
   border: 1px solid black;
   font-family: ${fonts.text};
+  width: 100%;
+  box-sizing: border-box;
 `;
