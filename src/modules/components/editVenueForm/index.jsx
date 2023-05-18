@@ -23,7 +23,6 @@ function App(props) {
   useEffect(() => {
     const findVenue = props.data.find((item) => item.id === props.id);
     setVenue(findVenue);
-    console.log(venue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 

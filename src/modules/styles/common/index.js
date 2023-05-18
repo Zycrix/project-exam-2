@@ -75,7 +75,7 @@ export const SecondaryHeading = styled.h2`
   font-size: 1.7rem;
   text-align: center;
   font-family: ${fonts.regular};
-  margin-top: 2.5rem;
+  /* margin-top: 2.5rem; */
 `;
 export const Text = styled.p`
   font-size: 1rem;

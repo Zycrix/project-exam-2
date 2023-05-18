@@ -155,3 +155,8 @@ export const OptionsOverlay = styled.div`
     }
   }
 `;
+export const BookingContainer = styled.div`
+  border-bottom: 1px solid gray;
+  box-sizing: border-box;
+  padding: 0.5rem;
+`;

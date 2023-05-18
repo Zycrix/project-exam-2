@@ -9,6 +9,7 @@ import fixDate from "../../modules/utils/fixDate";
 import bookingUrl from "../../modules/utils/urls/bookings";
 import specificUrl from "../../modules/utils/urls/specific";
 import EditVenueFrom from "../../modules/components/editVenueForm";
+import BookingModal from "../../modules/components/viewBookingModal";
 
 function App() {
   const name = window.location.href.split("/")[5];
@@ -16,21 +17,23 @@ function App() {
   const userName = window.sessionStorage.getItem("name");
   const [avatarModal, setAvatarModal] = useState(false);
   const [venueModal, setVenueModal] = useState(false);
+  const [bookingModal, setBookingModal] = useState(false);
   const [venueId, setVenueId] = useState("");
   const [avatar, setAvatar] = useState("");
   const [preview, setPreview] = useState(false);
   const [user, setUser] = useState(false);
+  const [bookingId, setBookingId] = useState("");
   const navigate = useNavigate();
   const { data, setData } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
   title.innerHTML = `Holidaze | ${name}'s profile`;
 
-  console.log(data);
   useEffect(() => {
     if (userName === name) {
       setUser(true);
     }
-  }, [data, userName, name]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handlePreview(e) {
     e.preventDefault();
@@ -81,9 +84,11 @@ function App() {
     console.log(result);
   }
 
-  function handleViewBookings(id) {
-    console.log(id);
-  }
+  const handleViewBookings = (id) => {
+    setBookingModal(!bookingModal);
+    setBookingId(id);
+  };
+
   return (
     <s.Container>
       <div className="img-container">
@@ -284,6 +289,11 @@ function App() {
           <h2>Edit Venue</h2>
           <EditVenueFrom id={venueId} data={data.venues || []} />
         </s.OverlayContent>
+      </s.Overlay>
+      <s.Overlay show={bookingModal}>
+        {bookingModal ? (
+          <BookingModal id={bookingId} close={handleViewBookings} />
+        ) : null}
       </s.Overlay>
     </s.Container>
   );

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/postVenue";
 import { useNavigate } from "react-router-dom";
-import { set } from "date-fns";
 function App() {
   const [general, setGeneral] = useState(false);
   const [details, setDetails] = useState(false);
@@ -13,7 +12,6 @@ function App() {
   const [images, setImages] = useState([]);
   const [image, setImage] = useState("");
   const [apiError, setApiError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const {
     register,
