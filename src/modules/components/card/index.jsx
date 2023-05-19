@@ -45,9 +45,6 @@ function App(props) {
           ) : null}
           {props.venue.meta.pets ? <div className="pets">PETS</div> : null}
         </div>
-        <div className="favorite">
-          <span className="material-symbols-outlined">favorite</span>
-        </div>
       </s.SliderCardImage>
       <h2>
         {props.venue.name.length < 23

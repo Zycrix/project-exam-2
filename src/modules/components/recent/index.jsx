@@ -16,23 +16,27 @@ function App(props) {
   }
 
   return (
-    <s.RecentContainer>
-      <c.SecondaryHeading>Recent venues</c.SecondaryHeading>
-      {recent.map((venue, i) => {
-        return (
-          <Card
-            venue={venue}
-            i={i}
-            key={venue.id}
-            data={props.data}
-            slider="false"
-          />
-        );
-      })}
-      <c.ViewMoreButton onClick={handleClick}>
-        View all listings
-      </c.ViewMoreButton>
-    </s.RecentContainer>
+    <>
+      <s.RecentContainer>
+        <c.SecondaryHeading>Recent venues</c.SecondaryHeading>
+        <s.CardContainer>
+          {recent.map((venue, i) => {
+            return (
+              <Card
+                venue={venue}
+                i={i}
+                key={venue.id}
+                data={props.data}
+                slider="false"
+              />
+            );
+          })}
+        </s.CardContainer>
+        <c.ViewMoreButton onClick={handleClick}>
+          View all listings
+        </c.ViewMoreButton>
+      </s.RecentContainer>
+    </>
   );
 }
 

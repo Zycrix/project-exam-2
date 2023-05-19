@@ -4,9 +4,8 @@ import * as c from "../../../../styles/common";
 import { NavLink } from "react-router-dom";
 
 function App(props) {
-  const path = window.location.pathname;
+  const path = window.location.hash;
   const [open, setOpen] = useState(false);
-
   let name = "";
   if (window.localStorage.getItem("name")) {
     name = window.localStorage.getItem("name");
@@ -41,7 +40,7 @@ function App(props) {
             <NavLink
               onClick={closeDropdown}
               to="/"
-              className={path === "/" ? "active" : ""}
+              className={path === "#/" ? "active" : ""}
             >
               Home
             </NavLink>

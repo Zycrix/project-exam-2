@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import * as common from "../common";
 
+export const HomeContainer = styled.div``;
 export const VenueSearchContainer = styled.div`
   width: 90%;
   margin: 0 auto;
@@ -157,6 +158,7 @@ export const StandardCard = styled.div`
   margin: 1rem 0;
   overflow: hidden;
   height: 40vh;
+
   h2 {
     text-align: center;
     margin: 0;
@@ -173,5 +175,29 @@ export const StandardCard = styled.div`
   .btn-container {
     width: 90%;
     margin: 0 auto;
+  }
+  @media (min-width: 450px) {
+    width: 70%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-bottom: 1rem;
+  }
+  @media (min-width: 600px) {
+    width: 45%;
+  }
+`;
+export const CardContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 600px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
   }
 `;

@@ -64,7 +64,7 @@ export const Dropdown = styled.div`
   display: ${(props) => (props.open ? "block" : "none")};
   animation: ${slideDownAnimation} 0.3s ease-in;
   animation-timing-function: linear;
-  z-index: 1;
+  z-index: 99;
   font-family: ${common.fonts.text};
   ul {
     padding: 0;

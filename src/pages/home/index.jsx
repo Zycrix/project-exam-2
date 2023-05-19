@@ -33,7 +33,7 @@ function App() {
   getAllResults();
   const topRated = venueFilter(data);
   return (
-    <>
+    <s.HomeContainer>
       <div>
         <c.MainHeading>Welcome to Holidaze!</c.MainHeading>
         <c.CenteredText>Find your next adventure</c.CenteredText>
@@ -43,7 +43,7 @@ function App() {
       </s.VenueSearchContainer>
       <TopRated data={topRated} />
       <Recent data={data} />
-    </>
+    </s.HomeContainer>
   );
 }
 
