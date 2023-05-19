@@ -54,6 +54,17 @@ export const OverlayContent = styled.div`
     box-sizing: border-box;
   }
 `;
+export const BookingOverlay = styled(OverlayContent)`
+  overflow-y: unset;
+  input {
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid black;
+    width: 100%;
+    box-sizing: border-box;
+  }
+`;
 export const PreviewContainer = styled.div`
   display: ${(props) => (props.show ? "block" : "none")};
   margin: 1.5rem auto;

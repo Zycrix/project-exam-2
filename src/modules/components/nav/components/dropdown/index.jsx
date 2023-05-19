@@ -55,24 +55,6 @@ function App(props) {
               All venues
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              onClick={closeDropdown}
-              to="/about"
-              className={path === "/about" ? "active" : ""}
-            >
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              onClick={closeDropdown}
-              to="/contact"
-              className={path === "/contact" ? "active" : ""}
-            >
-              Contact
-            </NavLink>
-          </li>
         </ul>
       ) : (
         <ul>

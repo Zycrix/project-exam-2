@@ -7,9 +7,11 @@ import * as c from "../../modules/styles/common";
 import apiCall from "../../modules/utils/apiCall";
 import fixDate from "../../modules/utils/fixDate";
 import bookingUrl from "../../modules/utils/urls/bookings";
-import specificUrl from "../../modules/utils/urls/specific";
 import EditVenueFrom from "../../modules/components/editVenueForm";
 import BookingModal from "../../modules/components/viewBookingModal";
+import EditAvatarModal from "../../modules/components/editAvatarModal";
+import handleDelete from "../../modules/utils/handleDeleteVenue";
+import EditBookingModule from "../../modules/components/editBookingModule";
 
 function App() {
   const name = window.location.href.split("/")[5];
@@ -20,9 +22,9 @@ function App() {
   const [bookingModal, setBookingModal] = useState(false);
   const [venueId, setVenueId] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [preview, setPreview] = useState(false);
   const [user, setUser] = useState(false);
   const [bookingId, setBookingId] = useState("");
+  const [editBookingModal, setEditBookingModal] = useState(false);
   const navigate = useNavigate();
   const { data, setData } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
@@ -34,11 +36,6 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function handlePreview(e) {
-    e.preventDefault();
-    setPreview(!preview);
-  }
 
   async function handleAvatarChange(e) {
     e.preventDefault();
@@ -78,14 +75,21 @@ function App() {
     setVenueId(id);
   }
 
-  async function handleDelete(id) {
-    const endpoint = specificUrl + id;
-    const result = await apiCall(endpoint, "DELETE", null);
-    console.log(result);
-  }
-
   const handleViewBookings = (id) => {
     setBookingModal(!bookingModal);
+    setBookingId(id);
+  };
+
+  const avatarChange = () => {
+    setAvatarModal(!avatarModal);
+  };
+
+  const handleAvatar = (val) => {
+    setAvatar(val);
+  };
+
+  const handleEditBooking = (id) => {
+    setEditBookingModal(!editBookingModal);
     setBookingId(id);
   };
 
@@ -224,7 +228,11 @@ function App() {
                               </c.CleanButton>
                             </li>
                             <li>
-                              <c.CleanButton>Update booking</c.CleanButton>
+                              <c.CleanButton
+                                onClick={(e) => handleEditBooking(booking.id)}
+                              >
+                                Update booking
+                              </c.CleanButton>
                             </li>
                             <li>
                               <c.CleanButton
@@ -252,32 +260,14 @@ function App() {
           : null}
       </s.BookingSection>
       <s.Overlay show={avatarModal}>
-        <s.OverlayContent>
-          <s.CloseContainer>
-            <c.CleanButton onClick={(e) => setAvatarModal(false)}>
-              <span className="material-symbols-outlined">close</span>
-            </c.CleanButton>
-          </s.CloseContainer>
-          <h2>Change avatar</h2>
-          <form onSubmit={(e) => handleAvatarChange(e)}>
-            <c.StandardInput
-              type="text"
-              placeholder="Avatar URL"
-              value={avatar}
-              onChange={(e) => setAvatar(e.target.value)}
-            />
-            <c.PrimaryButton>Save</c.PrimaryButton>
-          </form>
-          <hr />
-          <c.SecondaryButton onClick={(e) => handlePreview(e)}>
-            Preview
-          </c.SecondaryButton>
-          <s.PreviewContainer show={preview}>
-            <s.ImgContainer>
-              <img src={avatar} alt="preview" />
-            </s.ImgContainer>
-          </s.PreviewContainer>
-        </s.OverlayContent>
+        {avatarModal ? (
+          <EditAvatarModal
+            handler={handleAvatarChange}
+            toggle={avatarChange}
+            avatar={avatar}
+            changeAvatar={handleAvatar}
+          />
+        ) : null}
       </s.Overlay>
       <s.Overlay show={venueModal}>
         <s.OverlayContent>
@@ -293,6 +283,11 @@ function App() {
       <s.Overlay show={bookingModal}>
         {bookingModal ? (
           <BookingModal id={bookingId} close={handleViewBookings} />
+        ) : null}
+      </s.Overlay>
+      <s.Overlay show={editBookingModal}>
+        {editBookingModal ? (
+          <EditBookingModule id={bookingId} close={handleEditBooking} />
         ) : null}
       </s.Overlay>
     </s.Container>
