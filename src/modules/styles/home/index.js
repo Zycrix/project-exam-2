@@ -77,6 +77,15 @@ export const SliderCard = styled.div`
     width: 90%;
     margin: 0 auto;
   }
+  @media (min-width: 600px) {
+    width: 40%;
+    &[data-state="prev"] {
+      left: -15%;
+    }
+    &[data-state="next"] {
+      left: 75%;
+    }
+  }
 `;
 export const SliderCardImage = styled.div`
   width: 100%;
@@ -114,20 +123,6 @@ export const SliderCardImage = styled.div`
     .pets {
       background-color: ${common.colors.fourth};
     }
-  }
-  .favorite {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 3rem;
-    width: 5vw;
-    height: 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1/1;
   }
 `;
 export const SliderButton = styled.button`
