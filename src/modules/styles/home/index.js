@@ -37,6 +37,20 @@ export const SliderContainer = styled.div`
   position: relative;
   background-color: ${common.colors.primary};
   height: 50vh;
+  @media (min-width: 1200px) {
+    background-color: unset;
+    button.prev,
+    button.next {
+      background-color: ${common.colors.primary};
+      opacity: 0.6;
+      height: 20%;
+      top: 40%;
+    }
+    button.prev:hover,
+    button.next:hover {
+      opacity: 1;
+    }
+  }
 `;
 export const SliderCard = styled.div`
   width: 60%;
@@ -167,7 +181,7 @@ export const RecentContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin: 1rem auto 3rem;
 `;
 export const StandardCard = styled.div`

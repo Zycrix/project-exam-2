@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../../media/logo/logo-no-background.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as s from "../../styles/header";
-import * as c from "../../styles/common";
 import Dropdown from "./components/dropdown";
 import MobileNav from "../mobileNav";
 import DesktopNav from "../desktopNav";
@@ -54,14 +53,16 @@ function App() {
     <>
       <s.Header>
         <s.Nav>
-          <s.LogoContainer onClick={() => navigate("/")}>
-            <s.Logo src={logo} alt="logo" />
-          </s.LogoContainer>
-          {mobile ? (
-            <MobileNav toggleDropdown={toggleDropdown} loggedIn={loggedIn} />
-          ) : (
-            <DesktopNav toggleDropdown={toggleDropdown} loggedIn={loggedIn} />
-          )}
+          <s.Wrapper>
+            <s.LogoContainer onClick={() => navigate("/")}>
+              <s.Logo src={logo} alt="logo" />
+            </s.LogoContainer>
+            {mobile ? (
+              <MobileNav toggleDropdown={toggleDropdown} loggedIn={loggedIn} />
+            ) : (
+              <DesktopNav toggleDropdown={toggleDropdown} loggedIn={loggedIn} />
+            )}
+          </s.Wrapper>
         </s.Nav>
         <Dropdown open={open} source={source} manager={isVenueManager} />
       </s.Header>

@@ -2,13 +2,26 @@ import styled, { keyframes } from "styled-components";
 import * as common from "../common";
 
 export const Header = styled.header`
-  background-color: #282c34;
+  background-color: white;
   z-index: 100;
+`;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  @media (min-width: 1100px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 1500px) {
+    width: 70%;
+    margin: 0 auto;
+  }
 `;
 export const Nav = styled.nav`
   display: flex;
-  background-color: white;
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
+  background-color: white;
   padding: 1rem 0.5rem;
   justify-content: space-between;
   position: relative;
@@ -16,10 +29,6 @@ export const Nav = styled.nav`
   a {
     color: black;
     text-decoration: none;
-  }
-  @media (min-width: 1100px) {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 export const LogoContainer = styled.div`
@@ -31,6 +40,9 @@ export const LogoContainer = styled.div`
   }
   @media (min-width: 1100px) {
     max-width: 20vw;
+  }
+  @media (min-width: 1500px) {
+    max-width: 15vw;
   }
 `;
 export const Logo = styled.img`

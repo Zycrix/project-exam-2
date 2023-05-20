@@ -64,6 +64,13 @@ export const Main = styled.main`
   .error {
     color: red;
   }
+  @media (min-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+  @media (min-width: 1500px) {
+    width: 50vw;
+  }
 `;
 
 export const MainHeading = styled.h1`
