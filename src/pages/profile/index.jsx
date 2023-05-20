@@ -14,9 +14,9 @@ import handleDelete from "../../modules/utils/handleDeleteVenue";
 import EditBookingModule from "../../modules/components/editBookingModule";
 
 function App() {
-  const name = window.location.href.split("/");
-  console.log(name);
+  const name = window.location.href.split("/")[5];
   const endpoint = url + name + "?_bookings=true&_venues=true";
+  console.log(endpoint);
   const userName = window.sessionStorage.getItem("name");
   const [avatarModal, setAvatarModal] = useState(false);
   const [venueModal, setVenueModal] = useState(false);
