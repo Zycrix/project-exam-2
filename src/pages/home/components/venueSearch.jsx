@@ -11,6 +11,7 @@ function App(props) {
   const [statusMessage, setStatusMessage] = useState("");
 
   function handleSubmit(e) {
+    console.log("Submit");
     e.preventDefault();
     if (venues === "") {
       setErrorMessage(true);
