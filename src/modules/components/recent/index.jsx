@@ -18,7 +18,7 @@ function App(props) {
   return (
     <>
       <s.RecentContainer>
-        <c.SecondaryHeading>Recent venues</c.SecondaryHeading>
+        <c.SecondaryHeading>Recently posted venues</c.SecondaryHeading>
         <s.CardContainer>
           {recent.map((venue, i) => {
             return (

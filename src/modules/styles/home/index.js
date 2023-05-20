@@ -23,6 +23,12 @@ export const VenueSearchContainer = styled.div`
       }
     }
   }
+  @media (min-width: 800px) {
+    width: 80%;
+  }
+  @media (min-width: 800px) {
+    width: 60%;
+  }
 `;
 
 export const TopRatedContainer = styled.section``;
@@ -84,6 +90,24 @@ export const SliderCard = styled.div`
     }
     &[data-state="next"] {
       left: 75%;
+    }
+  }
+  @media (min-width: 800px) {
+    width: 35%;
+    &[data-state="prev"] {
+      left: -10%;
+    }
+    &[data-state="next"] {
+      left: 75%;
+    }
+  }
+  @media (min-width: 1100px) {
+    width: 30%;
+    &[data-state="prev"] {
+      left: 0%;
+    }
+    &[data-state="next"] {
+      left: 70%;
     }
   }
 `;
@@ -182,6 +206,12 @@ export const StandardCard = styled.div`
   }
   @media (min-width: 600px) {
     width: 45%;
+  }
+  @media (min-width: 800px) {
+    width: 40%;
+  }
+  @media (min-width: 1100px) {
+    width: 30%;
   }
 `;
 export const CardContainer = styled.div`
