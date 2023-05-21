@@ -7,10 +7,11 @@ function App({ data }) {
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
+        Math.floor(window.innerHeight + document.documentElement.scrollTop) !==
         document.documentElement.offsetHeight
-      )
+      ) {
         return;
+      }
       setItemsToShow((prevNum) => prevNum + 20);
     };
     window.addEventListener("scroll", handleScroll);
