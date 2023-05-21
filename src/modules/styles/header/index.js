@@ -110,6 +110,12 @@ export const Dropdown = styled.div`
     border-bottom: 2px solid black;
     font-family: ${common.fonts.strong};
   }
+  @media (min-width: 1500px) {
+    padding-inline: 15%;
+    ul {
+      margin-inline: 0;
+    }
+  }
 `;
 export const Text = styled.p`
   font-size: 1.2rem;

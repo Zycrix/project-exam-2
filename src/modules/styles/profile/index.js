@@ -18,12 +18,38 @@ export const Container = styled.section`
       aspect-ratio: 1/1;
       border-radius: 50%;
     }
+    @media (min-width: 600px) {
+      width: 40%;
+    }
+    @media (min-width: 800px) {
+      width: 30%;
+    }
+    @media (min-width: 1100px) {
+      width: 20%;
+    }
   }
   h1 {
     text-transform: capitalize;
   }
   p {
     margin: 0.5rem 0;
+  }
+  .info-container {
+    width: 100%;
+    p {
+      text-align: center;
+    }
+    @media (min-width: 1100px) {
+      grid-area: info-container;
+    }
+  }
+  @media (min-width: 1100px) {
+    display: grid;
+    grid-template-areas:
+      "info-container info-container"
+      "venue-section booking-section";
+    gap: 1rem;
+    align-items: top;
   }
 `;
 export const Overlay = styled.div`
@@ -52,6 +78,18 @@ export const OverlayContent = styled.div`
   form {
     width: 100%;
     box-sizing: border-box;
+  }
+  @media (min-width: 600px) {
+    width: 70%;
+  }
+  @media (min-width: 800px) {
+    width: 50%;
+  }
+  @media (min-width: 1100px) {
+    width: 40%;
+  }
+  @media (min-width: 1400px) {
+    width: 20%;
   }
 `;
 export const BookingOverlay = styled(OverlayContent)`
@@ -97,10 +135,34 @@ export const EditContainer = styled.div`
 export const VenueSection = styled.section`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+  @media (min-width: 800px) {
+    width: 60%;
+  }
+  @media (min-width: 1100px) {
+    grid-area: venue-section;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
 `;
 export const BookingSection = styled.section`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
+  @media (min-width: 600px) {
+    width: 80%;
+  }
+  @media (min-width: 800px) {
+    width: 60%;
+  }
+  @media (min-width: 1100px) {
+    grid-area: booking-section;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
 `;
 export const VenueCard = styled.div`
   width: 100%;
@@ -140,6 +202,9 @@ export const VenueCard = styled.div`
       }
     }
   }
+  @media (min-width: 1100px) {
+    height: 20vh;
+  }
 `;
 export const BookingCard = styled(VenueCard)`
   p {
@@ -163,6 +228,10 @@ export const OptionsOverlay = styled.div`
     margin: 0;
     padding: 0;
     li {
+      button {
+        font-size: 1rem !important;
+        padding-block: 0.4rem;
+      }
     }
   }
 `;
