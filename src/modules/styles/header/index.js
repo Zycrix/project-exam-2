@@ -2,16 +2,30 @@ import styled, { keyframes } from "styled-components";
 import * as common from "../common";
 
 export const Header = styled.header`
-  background-color: #282c34;
+  background-color: white;
   z-index: 100;
-  position: sticky;
+`;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  @media (min-width: 1100px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 1500px) {
+    width: 70%;
+    margin: 0 auto;
+  }
 `;
 export const Nav = styled.nav`
   display: flex;
-  background-color: white;
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.15);
+  background-color: white;
   padding: 1rem 0.5rem;
   justify-content: space-between;
+  position: relative;
+  z-index: 100;
   a {
     color: black;
     text-decoration: none;
@@ -21,6 +35,15 @@ export const LogoContainer = styled.div`
   max-width: 40vw;
   display: flex;
   align-items: center;
+  @media (min-width: 800px) {
+    max-width: 30vw;
+  }
+  @media (min-width: 1100px) {
+    max-width: 20vw;
+  }
+  @media (min-width: 1500px) {
+    max-width: 15vw;
+  }
 `;
 export const Logo = styled.img`
   max-width: 100%;
@@ -87,8 +110,38 @@ export const Dropdown = styled.div`
     border-bottom: 2px solid black;
     font-family: ${common.fonts.strong};
   }
+  @media (min-width: 1500px) {
+    padding-inline: 15%;
+    ul {
+      margin-inline: 0;
+    }
+  }
 `;
 export const Text = styled.p`
   font-size: 1.2rem;
   font-family: ${common.fonts.text};
+`;
+export const DesktopList = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      margin-inline: 1rem;
+      font-size: 1.5rem;
+      font-family: ${common.fonts.regular};
+    }
+  }
+  .active {
+    border-bottom: 2px solid black;
+    font-family: ${common.fonts.strong};
+  }
+`;
+export const IconDesktop = styled(IconContainer)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;

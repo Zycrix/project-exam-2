@@ -7,6 +7,15 @@ export const Form = styled.form`
   width: 90%;
   margin: 0 auto;
   font-family: ${common.fonts.text};
+  @media (min-width: 800px) {
+    width: 70%;
+  }
+  @media (min-width: 1100px) {
+    width: 60%;
+  }
+  @media (min-width: 1400px) {
+    width: 50%;
+  }
 `;
 export const Label = styled.label``;
 export const TextArea = styled.textarea`

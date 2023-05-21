@@ -95,19 +95,21 @@ function App() {
 
   return (
     <s.Container>
-      <div className="img-container">
-        <img src={data.avatar} alt="profile" />
-        <s.EditContainer className="overlay" show={user}>
-          <c.CleanButton onClick={(e) => setAvatarModal(true)}>
-            <span className="material-symbols-outlined">edit</span>
-          </c.CleanButton>
-        </s.EditContainer>
+      <div className="info-container">
+        <div className="img-container">
+          <img src={data.avatar} alt="profile" />
+          <s.EditContainer className="overlay" show={user}>
+            <c.CleanButton onClick={(e) => setAvatarModal(true)}>
+              <span className="material-symbols-outlined">edit</span>
+            </c.CleanButton>
+          </s.EditContainer>
+        </div>
+        <c.MainHeading>{data.name}</c.MainHeading>
+        <c.Text>{data.email}</c.Text>
+        <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
       </div>
-      <c.MainHeading>{data.name}</c.MainHeading>
-      <c.Text>{data.email}</c.Text>
-      <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
       <s.VenueSection show={data.venueManager}>
-        <c.MainHeading>Venues</c.MainHeading>
+        <c.SecondaryHeading>Your Venues</c.SecondaryHeading>
         {data?.venues?.length > 0 ? (
           data.venues.map((venue) => (
             <s.VenueCard key={venue.id}>
@@ -145,9 +147,7 @@ function App() {
                         </li>
                         <li>
                           <c.CleanButton
-                            onClick={() => {
-                              handleViewBookings(venue.id);
-                            }}
+                            onClick={(e) => handleViewBookings(venue.id)}
                           >
                             View bookings
                           </c.CleanButton>
@@ -190,7 +190,7 @@ function App() {
         )}
       </s.VenueSection>
       <s.BookingSection show={data?.bookings?.length > 0 ? true : false}>
-        <c.SecondaryHeading>Bookings</c.SecondaryHeading>
+        <c.SecondaryHeading>Your Bookings</c.SecondaryHeading>
         {data?.bookings?.length > 0
           ? data.bookings.map((booking) => (
               <s.BookingCard key={booking.id}>
