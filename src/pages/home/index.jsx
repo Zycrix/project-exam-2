@@ -20,7 +20,7 @@ function App() {
     if (data.length === 100) {
       let offset = 100;
       for (let i = 0; i < 20; i++) {
-        endpoint = url + `&offset=${offset}`;
+        endpoint = url + `?offset=${offset}`;
         const response = await callApi(endpoint, "GET", null);
         setData([...data, ...response]);
         offset += 100;

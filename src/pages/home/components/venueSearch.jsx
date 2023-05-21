@@ -9,9 +9,7 @@ function App(props) {
   const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useNavigate();
   const [statusMessage, setStatusMessage] = useState("");
-
   function handleSubmit(e) {
-    console.log("Submit");
     e.preventDefault();
     if (venues === "") {
       setErrorMessage(true);
@@ -26,13 +24,10 @@ function App(props) {
     if (guests === "") {
       searchParams.guests = 0;
     }
+    searchParams.guests = 0;
     const filteredVenues = venueFilter(props.data, searchParams);
-    console.log(props.data);
-    console.log(searchParams);
-    console.log(filteredVenues);
     if (filteredVenues.length === 0) {
       setStatusMessage("No venues found");
-      console.log(statusMessage);
       return;
     } else if (filteredVenues.length > 0) {
       window.sessionStorage.setItem(
@@ -43,7 +38,7 @@ function App(props) {
     }
   }
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <p className="error">
         {errorMessage ? "Please enter a venue name" : statusMessage}
       </p>
@@ -64,9 +59,7 @@ function App(props) {
         value={guests}
         onChange={(e) => setGuests(e.target.value)}
       />
-      <c.FormButton onClick={(e) => handleSubmit(e)}>
-        Search venues
-      </c.FormButton>
+      <c.FormButton type="submit">Search venues</c.FormButton>
     </form>
   );
 }
