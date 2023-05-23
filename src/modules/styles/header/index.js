@@ -35,6 +35,7 @@ export const LogoContainer = styled.div`
   max-width: 40vw;
   display: flex;
   align-items: center;
+  cursor: pointer;
   @media (min-width: 800px) {
     max-width: 30vw;
   }
