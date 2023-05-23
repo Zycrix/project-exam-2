@@ -45,7 +45,7 @@ export const ImgContainer = styled.div`
   max-height: 60vh;
   overflow: hidden;
   img {
-    max-width: 100%;
+    width: 100%;
     max-height: 100%;
     object-fit: cover;
     aspect-ratio: 16/9;

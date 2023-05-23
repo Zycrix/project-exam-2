@@ -60,6 +60,7 @@ function App(props) {
               key={venue.id}
               data={props.data}
               slider="true"
+              className="slider-card"
             />
           );
         })}

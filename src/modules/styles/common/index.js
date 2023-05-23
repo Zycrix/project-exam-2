@@ -46,6 +46,9 @@ export const CardButton = styled(SecondaryButton)`
 `;
 export const ViewMoreButton = styled(PrimaryButton)`
   width: 60%;
+  @media (min-width: 1200px) {
+    width: 30%;
+  }
 `;
 export const Main = styled.main`
   min-height: calc(100vh - 84px);
@@ -69,7 +72,7 @@ export const Main = styled.main`
     margin: 0 auto;
   }
   @media (min-width: 1500px) {
-    width: 50vw;
+    max-width: 1100px;
   }
 `;
 
@@ -99,4 +102,14 @@ export const StandardInput = styled.input`
   font-family: ${fonts.text};
   width: 100%;
   box-sizing: border-box;
+`;
+export const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 84px);
+  div {
+    width: 20%;
+  }
 `;

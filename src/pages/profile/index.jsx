@@ -25,10 +25,17 @@ function App() {
   const [user, setUser] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [editBookingModal, setEditBookingModal] = useState(false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { data, setData } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
   title.innerHTML = `Holidaze | ${name}'s profile`;
+  console.log(data);
+  useEffect(() => {
+    if (data?.status === "Unauthorized") {
+      setError(true);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (userName === name) {
@@ -94,134 +101,63 @@ function App() {
   };
 
   return (
-    <s.Container>
-      <div className="info-container">
-        <div className="img-container">
-          <img src={data.avatar} alt="profile" />
-          <s.EditContainer className="overlay" show={user}>
-            <c.CleanButton onClick={(e) => setAvatarModal(true)}>
-              <span className="material-symbols-outlined">edit</span>
-            </c.CleanButton>
-          </s.EditContainer>
-        </div>
-        <c.MainHeading>{data.name}</c.MainHeading>
-        <c.Text>{data.email}</c.Text>
-        <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
-      </div>
-      <s.VenueSection show={data.venueManager}>
-        <c.SecondaryHeading>Your Venues</c.SecondaryHeading>
-        {data?.venues?.length > 0 ? (
-          data.venues.map((venue) => (
-            <s.VenueCard key={venue.id}>
-              <div className="venue-img-container">
-                <img src={venue.media[0]} alt="venue" />
-              </div>
-              <div className="info">
-                <h3>{venue.name.slice(0, 30)}</h3>
-                {user ? (
-                  <div className="options">
-                    <c.CleanButton
-                      onClick={(e) => handleOptions(e)}
-                      data-id={venue.id}
-                    >
-                      <span
-                        className="material-symbols-outlined"
-                        data-id={venue.id}
-                      >
-                        more_vert
-                      </span>
-                    </c.CleanButton>
-                    <s.OptionsOverlay
-                      className="options-dropdown"
-                      data-id={venue.id}
-                    >
-                      <ul>
-                        <li>
-                          <c.CleanButton
-                            onClick={() => {
-                              handleView(venue.id);
-                            }}
-                          >
-                            View venue
-                          </c.CleanButton>
-                        </li>
-                        <li>
-                          <c.CleanButton
-                            onClick={(e) => handleViewBookings(venue.id)}
-                          >
-                            View bookings
-                          </c.CleanButton>
-                        </li>
-                        <li>
-                          <c.CleanButton
-                            onClick={(e) => {
-                              handleUpdate(e, venue.id);
-                            }}
-                          >
-                            Update venue
-                          </c.CleanButton>
-                        </li>
-                        <li>
-                          <c.CleanButton
-                            onClick={(e) => {
-                              handleDelete(venue.id);
-                            }}
-                          >
-                            Delete venue
-                          </c.CleanButton>
-                        </li>
-                      </ul>
-                    </s.OptionsOverlay>
+    <>
+      {error === true ? (
+        <c.ErrorContainer>
+          <c.MainHeading>Please log in to view this page</c.MainHeading>
+          <div>
+            <c.PrimaryButton onClick={() => navigate("/login")}>
+              Log in
+            </c.PrimaryButton>
+          </div>
+        </c.ErrorContainer>
+      ) : (
+        <s.Container>
+          <div className="info-container">
+            <div className="img-container">
+              <img src={data.avatar} alt="profile" />
+              <s.EditContainer className="overlay" show={user}>
+                <c.CleanButton onClick={(e) => setAvatarModal(true)}>
+                  <span className="material-symbols-outlined">edit</span>
+                </c.CleanButton>
+              </s.EditContainer>
+            </div>
+            <c.MainHeading>{data.name}</c.MainHeading>
+            <c.Text>{data.email}</c.Text>
+            <c.Text>{data.venueManager ? "Venue manager" : null}</c.Text>
+          </div>
+          <s.VenueSection show={data.venueManager}>
+            <c.SecondaryHeading>Your Venues</c.SecondaryHeading>
+            {data?.venues?.length > 0 ? (
+              data.venues.map((venue) => (
+                <s.VenueCard key={venue.id}>
+                  <div className="venue-img-container">
+                    <img src={venue.media[0]} alt="venue" />
                   </div>
-                ) : null}
-                <div className="flex">
-                  <c.Text>Rating:</c.Text>
-                  <c.Text>{venue.rating}/5</c.Text>
-                </div>
-                <div className="flex">
-                  <c.Text>Price:</c.Text>
-                  <c.Text>{venue.price}$</c.Text>
-                </div>
-              </div>
-            </s.VenueCard>
-          ))
-        ) : (
-          <c.Text>No venues registered</c.Text>
-        )}
-      </s.VenueSection>
-      <s.BookingSection show={data?.bookings?.length > 0 ? true : false}>
-        <c.SecondaryHeading>Your Bookings</c.SecondaryHeading>
-        {data?.bookings?.length > 0
-          ? data.bookings.map((booking) => (
-              <s.BookingCard key={booking.id}>
-                <div className="venue-img-container">
-                  <img src={booking.venue.media[0]} alt="venue" />
-                </div>
-                <div className="info">
-                  <div className="flex">
-                    <h3>{booking.venue.name}</h3>
+                  <div className="info">
+                    <h3>{venue.name.slice(0, 30)}</h3>
                     {user ? (
                       <div className="options">
                         <c.CleanButton
                           onClick={(e) => handleOptions(e)}
-                          data-id={booking.id}
+                          data-id={venue.id}
                         >
                           <span
                             className="material-symbols-outlined"
-                            data-id={booking.id}
+                            data-id={venue.id}
                           >
                             more_vert
                           </span>
                         </c.CleanButton>
                         <s.OptionsOverlay
                           className="options-dropdown"
-                          data-id={booking.id}
+                          data-id={venue.id}
                         >
                           <ul>
                             <li>
                               <c.CleanButton
                                 onClick={() => {
-                                  handleView(booking.venue.id);
+                                  handleView(venue.id);
                                 }}
                               >
                                 View venue
@@ -229,68 +165,155 @@ function App() {
                             </li>
                             <li>
                               <c.CleanButton
-                                onClick={(e) => handleEditBooking(booking.id)}
+                                onClick={(e) => handleViewBookings(venue.id)}
                               >
-                                Update booking
+                                View bookings
                               </c.CleanButton>
                             </li>
                             <li>
                               <c.CleanButton
                                 onClick={(e) => {
-                                  handleCancel(booking.id);
+                                  handleUpdate(e, venue.id);
                                 }}
                               >
-                                Cancel booking
+                                Update venue
+                              </c.CleanButton>
+                            </li>
+                            <li>
+                              <c.CleanButton
+                                onClick={(e) => {
+                                  handleDelete(venue.id);
+                                }}
+                              >
+                                Delete venue
                               </c.CleanButton>
                             </li>
                           </ul>
                         </s.OptionsOverlay>
                       </div>
                     ) : null}
+                    <div className="flex">
+                      <c.Text>Rating:</c.Text>
+                      <c.Text>{venue.rating}/5</c.Text>
+                    </div>
+                    <div className="flex">
+                      <c.Text>Price:</c.Text>
+                      <c.Text>{venue.price}$</c.Text>
+                    </div>
                   </div>
-                  <c.Text>Period: </c.Text>
-                  <div className="flex">
-                    <c.Text>
-                      {fixDate(booking.dateFrom)} - {fixDate(booking.dateTo)}
-                    </c.Text>
-                  </div>
-                </div>
-              </s.BookingCard>
-            ))
-          : null}
-      </s.BookingSection>
-      <s.Overlay show={avatarModal}>
-        {avatarModal ? (
-          <EditAvatarModal
-            handler={handleAvatarChange}
-            toggle={avatarChange}
-            avatar={avatar}
-            changeAvatar={handleAvatar}
-          />
-        ) : null}
-      </s.Overlay>
-      <s.Overlay show={venueModal}>
-        <s.OverlayContent>
-          <s.CloseContainer>
-            <c.CleanButton onClick={(e) => setVenueModal(false)}>
-              <span className="material-symbols-outlined">close</span>
-            </c.CleanButton>
-          </s.CloseContainer>
-          <h2>Edit Venue</h2>
-          <EditVenueFrom id={venueId} data={data.venues || []} />
-        </s.OverlayContent>
-      </s.Overlay>
-      <s.Overlay show={bookingModal}>
-        {bookingModal ? (
-          <BookingModal id={bookingId} close={handleViewBookings} />
-        ) : null}
-      </s.Overlay>
-      <s.Overlay show={editBookingModal}>
-        {editBookingModal ? (
-          <EditBookingModule id={bookingId} close={handleEditBooking} />
-        ) : null}
-      </s.Overlay>
-    </s.Container>
+                </s.VenueCard>
+              ))
+            ) : (
+              <c.Text>No venues registered</c.Text>
+            )}
+          </s.VenueSection>
+          <s.BookingSection show={data?.bookings?.length > 0 ? true : false}>
+            <c.SecondaryHeading>Your Bookings</c.SecondaryHeading>
+            {data?.bookings?.length > 0
+              ? data.bookings.map((booking) => (
+                  <s.BookingCard key={booking.id}>
+                    <div className="venue-img-container">
+                      <img src={booking.venue.media[0]} alt="venue" />
+                    </div>
+                    <div className="info">
+                      <div className="flex">
+                        <h3>{booking.venue.name}</h3>
+                        {user ? (
+                          <div className="options">
+                            <c.CleanButton
+                              onClick={(e) => handleOptions(e)}
+                              data-id={booking.id}
+                            >
+                              <span
+                                className="material-symbols-outlined"
+                                data-id={booking.id}
+                              >
+                                more_vert
+                              </span>
+                            </c.CleanButton>
+                            <s.OptionsOverlay
+                              className="options-dropdown"
+                              data-id={booking.id}
+                            >
+                              <ul>
+                                <li>
+                                  <c.CleanButton
+                                    onClick={() => {
+                                      handleView(booking.venue.id);
+                                    }}
+                                  >
+                                    View venue
+                                  </c.CleanButton>
+                                </li>
+                                <li>
+                                  <c.CleanButton
+                                    onClick={(e) =>
+                                      handleEditBooking(booking.id)
+                                    }
+                                  >
+                                    Update booking
+                                  </c.CleanButton>
+                                </li>
+                                <li>
+                                  <c.CleanButton
+                                    onClick={(e) => {
+                                      handleCancel(booking.id);
+                                    }}
+                                  >
+                                    Cancel booking
+                                  </c.CleanButton>
+                                </li>
+                              </ul>
+                            </s.OptionsOverlay>
+                          </div>
+                        ) : null}
+                      </div>
+                      <c.Text>Period: </c.Text>
+                      <div className="flex">
+                        <c.Text>
+                          {fixDate(booking.dateFrom)} -{" "}
+                          {fixDate(booking.dateTo)}
+                        </c.Text>
+                      </div>
+                    </div>
+                  </s.BookingCard>
+                ))
+              : null}
+          </s.BookingSection>
+          <s.Overlay show={avatarModal}>
+            {avatarModal ? (
+              <EditAvatarModal
+                handler={handleAvatarChange}
+                toggle={avatarChange}
+                avatar={avatar}
+                changeAvatar={handleAvatar}
+              />
+            ) : null}
+          </s.Overlay>
+          <s.Overlay show={venueModal}>
+            <s.OverlayContent>
+              <s.CloseContainer>
+                <c.CleanButton onClick={(e) => setVenueModal(false)}>
+                  <span className="material-symbols-outlined">close</span>
+                </c.CleanButton>
+              </s.CloseContainer>
+              <h2>Edit Venue</h2>
+              <EditVenueFrom id={venueId} data={data.venues || []} />
+            </s.OverlayContent>
+          </s.Overlay>
+          <s.Overlay show={bookingModal}>
+            {bookingModal ? (
+              <BookingModal id={bookingId} close={handleViewBookings} />
+            ) : null}
+          </s.Overlay>
+          <s.Overlay show={editBookingModal}>
+            {editBookingModal ? (
+              <EditBookingModule id={bookingId} close={handleEditBooking} />
+            ) : null}
+          </s.Overlay>
+        </s.Container>
+      )}
+    </>
   );
 }
 

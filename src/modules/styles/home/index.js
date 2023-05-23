@@ -37,6 +37,8 @@ export const SliderContainer = styled.div`
   position: relative;
   background-color: ${common.colors.primary};
   height: 50vh;
+  display: flex;
+  overflow: hidden;
   @media (min-width: 1200px) {
     background-color: unset;
     button.prev,
@@ -44,7 +46,6 @@ export const SliderContainer = styled.div`
       background-color: ${common.colors.primary};
       opacity: 0.6;
       height: 20%;
-      top: 40%;
     }
     button.prev:hover,
     button.next:hover {
@@ -55,28 +56,33 @@ export const SliderContainer = styled.div`
 export const SliderCard = styled.div`
   width: 60%;
   border-radius: 1rem;
-  height: 40vh;
+  height: auto;
   background-color: white;
-  position: absolute;
   overflow: hidden;
-  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
   opacity: 0;
-  top: 5vh;
   transition: all 0.5s ease-in-out;
+  display: none;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
   &[data-state="active"] {
-    display: block;
+    display: flex;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     opacity: 1;
     z-index: 3;
   }
   &[data-state="prev"] {
-    display: block;
+    display: flex;
     left: -45%;
     opacity: 1;
   }
   &[data-state="next"] {
-    display: block;
+    display: flex;
     left: 85%;
     opacity: 1;
   }
@@ -96,6 +102,10 @@ export const SliderCard = styled.div`
   .btn-container {
     width: 90%;
     margin: 0 auto;
+  }
+  @media (min-width: 450px) {
+    box-sizing: border-box;
+    padding-bottom: 1rem;
   }
   @media (min-width: 600px) {
     width: 40%;
@@ -164,9 +174,10 @@ export const SliderCardImage = styled.div`
   }
 `;
 export const SliderButton = styled.button`
-  top: 5vh;
+  top: 50%;
+  transform: translateY(-50%);
   position: absolute;
-  height: 40vh;
+  height: 100%;
   border: none;
   background-color: rgba(255, 255, 255, 0.7);
   z-index: 10;
@@ -190,8 +201,7 @@ export const StandardCard = styled.div`
   background-color: white;
   margin: 1rem 0;
   overflow: hidden;
-  height: 40vh;
-
+  padding-bottom: 1rem;
   h2 {
     text-align: center;
     margin: 0;
@@ -208,10 +218,12 @@ export const StandardCard = styled.div`
   .btn-container {
     width: 90%;
     margin: 0 auto;
+    button {
+      background-color: ${common.colors.primary};
+    }
   }
   @media (min-width: 450px) {
     width: 70%;
-    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
