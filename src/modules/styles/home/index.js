@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import * as common from "../common";
 
-export const HomeContainer = styled.div``;
+export const HomeContainer = styled.div`
+  @media (min-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+`;
 export const VenueSearchContainer = styled.div`
   width: 90%;
   margin: 0 auto;
