@@ -16,6 +16,10 @@ export const Container = styled.section`
     border: none;
     height: 1px;
   }
+  @media (min-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 export const OwnerContainer = styled.div`
   display: flex;

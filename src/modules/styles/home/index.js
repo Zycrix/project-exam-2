@@ -60,7 +60,7 @@ export const SliderContainer = styled.div`
 `;
 export const SliderCard = styled.div`
   width: 60%;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   height: auto;
   background-color: white;
   overflow: hidden;
@@ -202,7 +202,7 @@ export const RecentContainer = styled.section`
 `;
 export const StandardCard = styled.div`
   width: 80%;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   background-color: white;
   margin: 1rem 0;
   overflow: hidden;

@@ -16,7 +16,7 @@ function App() {
 
   return (
     <s.LoginContainer>
-      <c.MainHeading>Log in</c.MainHeading>
+      <c.MainHeading>{login ? "Log in" : "Register"}</c.MainHeading>
       {login ? <Login /> : <Register />}
 
       <c.RegisterButton onClick={(e) => toggleRegister(e)} state={login}>

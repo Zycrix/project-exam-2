@@ -47,9 +47,17 @@ export const Container = styled.section`
     display: grid;
     grid-template-areas:
       "info-container info-container"
-      "venue-section booking-section";
+      "sections sections";
     gap: 1rem;
     align-items: top;
+    .section-container {
+      grid-area: sections;
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 1rem;
+    }
   }
 `;
 export const Overlay = styled.div`
@@ -143,7 +151,7 @@ export const VenueSection = styled.section`
   }
   @media (min-width: 1100px) {
     grid-area: venue-section;
-    width: 100%;
+    max-width: 50%;
     height: 100%;
     box-sizing: border-box;
   }
@@ -159,7 +167,7 @@ export const BookingSection = styled.section`
   }
   @media (min-width: 1100px) {
     grid-area: booking-section;
-    width: 100%;
+    max-width: 50%;
     height: 100%;
     box-sizing: border-box;
   }
@@ -239,4 +247,7 @@ export const BookingContainer = styled.div`
   border-bottom: 1px solid gray;
   box-sizing: border-box;
   padding: 0.5rem;
+`;
+export const Margin = styled.div`
+  margin: 1rem 0;
 `;
