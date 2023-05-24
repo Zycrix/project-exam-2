@@ -57,7 +57,7 @@ npm start
 
 ## Live site
 
-The site is live at [here](https://brilliant-peony-508e4e.netlify.app/index.html#/). <br/> <br/>
+The site is live [here](https://brilliant-peony-508e4e.netlify.app/index.html#/). <br/> <br/>
 [![Netlify Status](https://api.netlify.com/api/v1/badges/21f1b416-9194-4905-8811-9309f36e160d/deploy-status)](https://app.netlify.com/sites/brilliant-peony-508e4e/deploys)
 
 ## Contact
