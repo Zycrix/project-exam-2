@@ -43,7 +43,7 @@ function App(props) {
         {errorMessage ? "Please enter a venue name" : statusMessage}
       </p>
       <input
-        placeholder="Search for a venues by name"
+        placeholder="Search for venues by name"
         type="text"
         name="venue"
         id="venue"

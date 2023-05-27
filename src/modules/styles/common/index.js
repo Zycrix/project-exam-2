@@ -20,6 +20,7 @@ export const PrimaryButton = styled.button`
   border-radius: 2rem;
   cursor: pointer;
   width: 100%;
+  color: black;
 `;
 export const SecondaryButton = styled(PrimaryButton)`
   background-color: ${colors.fourth};
@@ -33,6 +34,7 @@ export const FormButton = styled(PrimaryButton)`
 export const RegisterButton = styled(FormButton)`
   background-color: ${colors.fourth};
   width: 60%;
+  color: black;
 `;
 export const CleanButton = styled.button`
   background-color: transparent;
@@ -40,6 +42,7 @@ export const CleanButton = styled.button`
   padding: 0;
   margin: 0;
   cursor: pointer;
+  color: black;
 `;
 export const CardButton = styled(SecondaryButton)`
   width: 100%;

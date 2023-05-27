@@ -49,7 +49,7 @@ export const SliderContainer = styled.div`
     button.prev,
     button.next {
       background-color: ${common.colors.primary};
-      opacity: 0.6;
+      opacity: 0.8;
       height: 20%;
     }
     button.prev:hover,
@@ -69,7 +69,7 @@ export const SliderCard = styled.div`
   padding-bottom: 1rem;
   box-sizing: border-box;
   opacity: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.4s linear;
   display: none;
   top: 50%;
   transform: translateY(-50%);
@@ -184,13 +184,16 @@ export const SliderButton = styled.button`
   position: absolute;
   height: 100%;
   border: none;
-  background-color: rgba(255, 255, 255, 0.7);
   z-index: 10;
+  display: none;
   &.next {
     right: 0;
   }
   &.prev {
     left: 0;
+  }
+  @media (min-width: 1100px) {
+    display: block;
   }
 `;
 export const RecentContainer = styled.section`

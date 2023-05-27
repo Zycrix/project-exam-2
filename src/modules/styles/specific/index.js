@@ -47,12 +47,21 @@ export const OwnerContainer = styled.div`
 export const ImgContainer = styled.div`
   width: 100%;
   max-height: 60vh;
+  min-height: 20vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+  /* padding: 2rem 0; */
   img {
-    width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    min-height: 100%;
+    object-fit: contain;
     aspect-ratio: 16/9;
+    overflow: unset;
+    /* padding: 5rem; */
+    /* transform: scale(0.7); */
   }
 `;
 export const BookContainer = styled.div`

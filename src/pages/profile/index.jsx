@@ -11,6 +11,7 @@ import EditAvatarModal from "../../modules/components/editAvatarModal";
 import EditBookingModule from "../../modules/components/editBookingModule";
 import ProfileBookings from "../../modules/components/profileBookings";
 import ProfileVenues from "../../modules/components/profileVenues";
+import placeholderImg from "../../media/placeholder-img.gif";
 
 function App() {
   const name = window.location.href.split("/")[5];
@@ -97,7 +98,7 @@ function App() {
         <s.Container>
           <div className="info-container">
             <div className="img-container">
-              <img src={data.avatar} alt="profile" />
+              <img src={data.avatar || placeholderImg} alt="profile" />
               <s.EditContainer className="overlay" show={user}>
                 <c.CleanButton onClick={(e) => setAvatarModal(true)}>
                   <span className="material-symbols-outlined">edit</span>

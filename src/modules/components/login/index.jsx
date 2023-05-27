@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as c from "../../styles/common";
 import * as s from "../../styles/login";
@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/login";
+import HandleZoom from "../handleZoom";
 
 //Email validation regex
 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,15 +29,15 @@ const schema = yup.object({
     .email("Please enter a valid email address"),
   password: yup
     .string()
-    .required("Please enter your message")
+    .required("Please enter your password")
     .min(3, "Min 3 characters"),
 });
 
 function App() {
   const [remember, setRemember] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -47,6 +48,7 @@ function App() {
   async function submitted(data) {
     const form = document.querySelector(".form");
     body = data;
+    body.email = body.email.toLowerCase();
     console.log(body);
     console.log(errors);
     form.reset();
@@ -71,31 +73,56 @@ function App() {
     }
   }
 
+  function toggleShow(e) {
+    e.preventDefault();
+    setShow(!show);
+  }
+
   return (
-    <s.LoginForm
-      onSubmit={handleSubmit((data) => submitted(data))}
-      className="form"
-    >
-      <p>{errors.email?.message || success}</p>
-      <s.LoginInput type="text" placeholder="Username" {...register("email")} />
-      <p>{errors.password?.message}</p>
-      <s.LoginInput
-        type="password"
-        placeholder="Password"
-        {...register("password")}
-      />
-      <div className="checkbox">
-        <s.CheckboxLabel>Remember me:</s.CheckboxLabel>
-        <s.LoginCheckbox
-          type="checkbox"
-          value={remember}
-          onChange={() => setRemember(!remember)}
+    <>
+      <s.LoginForm
+        onSubmit={handleSubmit((data) => submitted(data))}
+        className="form"
+      >
+        <p>{errors.email?.message || success}</p>
+        <s.LoginInput
+          id="email"
+          type="text"
+          placeholder="Email"
+          {...register("email")}
         />
-      </div>
-      <div className="button-container">
-        <c.FormButton type="submit">Log in</c.FormButton>
-      </div>
-    </s.LoginForm>
+        <p>{errors.password?.message}</p>
+        <div className="password-container">
+          <s.LoginInput
+            type={show ? "text" : "password"}
+            placeholder="Password"
+            id="password"
+            {...register("password")}
+          />
+          <c.CleanButton
+            type="button"
+            className="show-button"
+            onClick={(e) => toggleShow(e)}
+          >
+            <span className="material-symbols-outlined">
+              {show ? "visibility_off" : "visibility"}
+            </span>
+          </c.CleanButton>
+        </div>
+        <div className="checkbox">
+          <s.CheckboxLabel>Remember me:</s.CheckboxLabel>
+          <s.LoginCheckbox
+            type="checkbox"
+            value={remember}
+            onChange={() => setRemember(!remember)}
+          />
+        </div>
+        <div className="button-container">
+          <c.FormButton type="submit">Log in</c.FormButton>
+        </div>
+      </s.LoginForm>
+      <HandleZoom />
+    </>
   );
 }
 

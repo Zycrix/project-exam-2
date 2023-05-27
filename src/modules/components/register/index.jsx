@@ -3,10 +3,11 @@ import * as c from "../../styles/common";
 import * as s from "../../styles/login";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import url from "../../utils/urls/register";
 import callApi from "../../utils/apiCall.js";
-
+import loginUrl from "../../utils/urls/login";
 //Email validation regex
 const regex = /^[^\s@]+@stud.noroff+\.no/;
 
@@ -35,12 +36,13 @@ const schema = yup.object({
     .min(3, "Min 3 characters"),
 });
 
-function App() {
+function App({ toggle, info }) {
   const [role, setRole] = useState("customer");
   const [avatar, setAvatar] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmError, setConfirmError] = useState("");
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   let body = {};
 
@@ -53,6 +55,8 @@ function App() {
   async function submitted(data) {
     const form = document.querySelector(".form");
     body = data;
+    body.name = body.name.trim();
+    body.email = body.email.toLowerCase();
     body.venueManager = role === "customer" ? false : true;
     body.avatar = avatar;
     if (body.password !== confirmPassword) {
@@ -62,13 +66,20 @@ function App() {
       setAvatar("");
       setRole("customer");
       setConfirmPassword("");
-      console.log(body);
-      console.log(errors);
       form.reset();
       const result = await callApi(url, "POST", body);
       if (result.id) {
-        setSuccess("User created!");
-        console.log(result);
+        const loginBody = {
+          email: body.email,
+          password: body.password,
+        };
+        const loginResult = await callApi(loginUrl, "POST", loginBody);
+        if (loginResult.accessToken) {
+          sessionStorage.setItem("token", loginResult.accessToken);
+          sessionStorage.setItem("name", loginResult.name);
+          sessionStorage.setItem("manager", loginResult.venueManager);
+          navigate("/");
+        }
       } else {
         setSuccess(result.errors[0].message);
         console.log(result);
@@ -83,13 +94,21 @@ function App() {
     >
       <p>{success}</p>
       <p>{errors.name?.message}</p>
-      <s.LoginInput type="text" placeholder="Username" {...register("name")} />
+      <s.LoginInput
+        type="text"
+        placeholder="Username (No spaces)"
+        {...register("name")}
+      />
       <p>{errors.email?.message}</p>
-      <s.LoginInput type="text" placeholder="Email" {...register("email")} />
+      <s.LoginInput
+        type="text"
+        placeholder="Email (Valid stud.noroff.no email)"
+        {...register("email")}
+      />
       <p>{errors.password?.message}</p>
       <s.LoginInput
         type="password"
-        placeholder="Password"
+        placeholder="Password (Min 8 characters)"
         {...register("password")}
       />
       <p>{errors.confirm?.message || confirmError}</p>
@@ -99,6 +118,7 @@ function App() {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
+      <p></p>
       <s.LoginInput
         type="string"
         placeholder="Avatar URL"

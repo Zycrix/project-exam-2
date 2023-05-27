@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as c from "../../styles/common";
 import * as s from "../../styles/home";
 import scrollFix from "../../utils/scrollFix";
-
+import placeholderImg from "../../../media/placeholder-img.gif";
 function App(props) {
   const navigate = useNavigate();
   const Slider = s.SliderCard;
@@ -34,7 +34,10 @@ function App(props) {
       key={props.venue.id}
     >
       <s.SliderCardImage>
-        <img src={props.venue.media[0]} alt={props.venue.name} />
+        <img
+          src={props.venue.media[0] || placeholderImg}
+          alt={props.venue.name}
+        />
         <div className="perks">
           {props.venue.meta.wifi ? <div className="wifi">WIFI</div> : null}
           {props.venue.meta.parking ? (

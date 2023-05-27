@@ -8,18 +8,20 @@ import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/bookings";
 import DetailsContainer from "../detailsSection";
 import OwnerSection from "../ownerSection";
+import placeholderImg from "../../../media/placeholder-img.gif";
+import { min } from "date-fns";
 
 function App(props) {
   const data = props.data;
   const today = new Date();
   const minDate = today.setDate(today.getDate() + 1);
+  const minEnd = today.setDate(today.getDate() + 1);
   const [BookingModal, setBookingModal] = useState(false);
   const [start, setStart] = useState(minDate);
-  const [end, setEnd] = useState(minDate);
+  const [end, setEnd] = useState(minEnd);
   const [guests, setGuests] = useState(undefined);
   const [success, setSuccess] = useState(false);
   const booked = [];
-
   if (data?.bookings?.length > 0) {
     const temp = [];
     for (let i = 0; i < data.bookings.length; i++) {
@@ -28,13 +30,12 @@ function App(props) {
       temp.push(getBooked(startDate, endDate));
     }
     temp.forEach((item) => {
-      //May create duplicates if someone don't check that new bookings are not duplicates but it wont affect the function of the datepicker so im just gonna leave it like this
       item.forEach((date) => {
         booked.push(date);
       });
     });
   }
-
+  console.log(booked);
   function toggleBookingModal() {
     setBookingModal(!BookingModal);
   }
@@ -56,7 +57,13 @@ function App(props) {
       }, 1500);
     }
   }
-
+  function handleChange(date) {
+    setStart(null);
+    setStart(date);
+    let startDate = new Date(date);
+    startDate.setDate(startDate.getDate() + 1);
+    setEnd(startDate);
+  }
   return (
     <s.Container>
       {data?.errors ? (
@@ -64,7 +71,7 @@ function App(props) {
       ) : (
         <>
           <s.ImgContainer>
-            <img src={data.media?.[0]} alt="The venue" />
+            <img src={data.media?.[0] || placeholderImg} alt="The venue" />
           </s.ImgContainer>
           <c.MainHeading>{data.name}</c.MainHeading>
           <div className="info">
@@ -95,7 +102,7 @@ function App(props) {
                 <DatePicker
                   id="start"
                   selected={start}
-                  onChange={(date) => setStart(date)}
+                  onChange={(date) => handleChange(date)}
                   selectsStart
                   startDate={start}
                   endDate={end}
@@ -116,6 +123,8 @@ function App(props) {
                   dateFormat="dd/MM/yyyy"
                   excludeDates={booked}
                   required
+                  type="date"
+                  inputmode="none"
                 />
                 <label htmlFor="guests">Number of guests:</label>
                 <input

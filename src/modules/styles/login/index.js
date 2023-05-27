@@ -17,14 +17,23 @@ export const LoginForm = styled.form`
   .button-container {
     margin-top: 1rem;
   }
+  .password-container {
+    position: relative;
+    button {
+      position: absolute;
+      top: 4px;
+      right: 10px;
+    }
+  }
 `;
 export const LoginInput = styled.input`
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.7rem;
   box-sizing: border-box;
   box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid lightgray;
   border-radius: 2rem;
+  font-size: 1rem;
 `;
 export const CheckboxLabel = styled.label``;
 export const LoginCheckbox = styled.input`

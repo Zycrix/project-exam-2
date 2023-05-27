@@ -4,6 +4,8 @@ import * as s from "../../styles/home";
 import Card from "../card";
 
 function App(props) {
+  let touchStart;
+  let touchEnd;
   function next(e) {
     const current = document.querySelector("[data-state='active']");
     const next = document.querySelector("[data-state='next']");
@@ -40,6 +42,22 @@ function App(props) {
     }
   }
 
+  function handleTouchStart(e) {
+    console.log(e.changedTouches[0].clientX);
+    touchStart = e.changedTouches[0].clientX;
+  }
+
+  function handleTouchEnd(e) {
+    console.log(e.changedTouches[0].clientX);
+    touchEnd = e.changedTouches[0].clientX;
+
+    if (touchStart > touchEnd && touchStart - touchEnd > 25) {
+      next();
+    } else if (touchStart < touchEnd && touchEnd - touchStart > 25) {
+      prev();
+    }
+  }
+
   return (
     <s.TopRatedContainer>
       <c.SecondaryHeading>Top rated venues</c.SecondaryHeading>
@@ -52,18 +70,20 @@ function App(props) {
         >
           <span className="material-symbols-outlined">arrow_back</span>
         </s.SliderButton>
-        {props.data.map((venue, i) => {
-          return (
-            <Card
-              venue={venue}
-              i={i}
-              key={venue.id}
-              data={props.data}
-              slider="true"
-              className="slider-card"
-            />
-          );
-        })}
+        <div onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+          {props.data.map((venue, i) => {
+            return (
+              <Card
+                venue={venue}
+                i={i}
+                key={venue.id}
+                data={props.data}
+                slider="true"
+                className="slider-card"
+              />
+            );
+          })}
+        </div>
         <s.SliderButton
           className="next"
           onClick={(e) => {

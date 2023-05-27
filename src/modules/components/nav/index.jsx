@@ -43,7 +43,7 @@ function App() {
         setMobile(true);
       }
     }
-
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);

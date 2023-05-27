@@ -3,7 +3,7 @@ import * as s from "../../styles/profile";
 import * as c from "../../styles/common";
 import handleOptions from "../../utils/toggleOptionsDropdown";
 import handleDelete from "../../utils/handleDeleteVenue";
-
+import placeholderImg from "../../../media/placeholder-img.gif";
 function App({ data, user, handleView, handleViewBookings, handleUpdate }) {
   return (
     <s.VenueSection show={data.venueManager}>
@@ -14,7 +14,7 @@ function App({ data, user, handleView, handleViewBookings, handleUpdate }) {
         data.venues.map((venue) => (
           <s.VenueCard key={venue.id}>
             <div className="venue-img-container">
-              <img src={venue.media[0]} alt="venue" />
+              <img src={venue.media[0] || placeholderImg} alt="venue" />
             </div>
             <div className="info">
               <h3>{venue.name.slice(0, 30)}</h3>

@@ -5,6 +5,7 @@ import handleOptions from "../../utils/toggleOptionsDropdown";
 import apiCall from "../../utils/apiCall";
 import bookingUrl from "../../utils/urls/bookings";
 import fixDate from "../../utils/fixDate";
+import placeholderImg from "../../../media/placeholder-img.gif";
 
 function App({ data, user, handleView, handleEditBooking, setData }) {
   async function handleCancel(id) {
@@ -24,7 +25,10 @@ function App({ data, user, handleView, handleEditBooking, setData }) {
         ? data.bookings.map((booking) => (
             <s.BookingCard key={booking.id}>
               <div className="venue-img-container">
-                <img src={booking.venue.media[0]} alt="venue" />
+                <img
+                  src={booking.venue.media[0] || placeholderImg}
+                  alt="venue"
+                />
               </div>
               <div className="info">
                 <div className="flex">
