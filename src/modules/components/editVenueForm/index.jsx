@@ -71,6 +71,7 @@ function App(props) {
         continent: venue?.location?.continent,
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venue]);
 
   //Toggle the general section
