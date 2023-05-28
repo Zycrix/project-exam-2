@@ -26,6 +26,10 @@ A list of technical restrictions were also given for the project. These were:
 4. Use an approved design application (Adobe XD)
 5. Use an approved planning application (Trello)
 
+## Project structure
+
+The project is structured in a way that tries to makes it easy to navigate. All components, utility functions and styles are placed inside they're own folder in the modules folder. The pages folder contains the pages that are rendered by the router in the app.js file. Images and logo files are placed in the media folder.
+
 ## Build with
 
 - [React.js](https://reactjs.org/)
@@ -59,6 +63,14 @@ npm start
 
 The site is live [here](https://brilliant-peony-508e4e.netlify.app/index.html#/). <br/> <br/>
 [![Netlify Status](https://api.netlify.com/api/v1/badges/21f1b416-9194-4905-8811-9309f36e160d/deploy-status)](https://app.netlify.com/sites/brilliant-peony-508e4e/deploys)
+
+## Other delivery links
+
+[Kanban board](https://github.com/users/Zycrix/projects/2)</br>
+[Gantt chart](https://github.com/Zycrix/project-exam-2/blob/master/gantt-chart/gantt-chart.jpg)</br>
+[Design prototype](https://xd.adobe.com/view/3f134742-a671-473d-a9ef-f3d81f3db7f1-6a40/grid)</br>
+[Style guide](https://xd.adobe.com/view/3f134742-a671-473d-a9ef-f3d81f3db7f1-6a40/)</br>
+[Github Repository](https://github.com/Zycrix/project-exam-2)
 
 ## Contact
 
