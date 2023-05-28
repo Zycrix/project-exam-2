@@ -38,7 +38,7 @@ function App(props) {
           })}
         </s.CardContainer>
         <c.ViewMoreButton onClick={handleClick}>
-          View all listings
+          View all venues
         </c.ViewMoreButton>
       </s.RecentContainer>
     </>
