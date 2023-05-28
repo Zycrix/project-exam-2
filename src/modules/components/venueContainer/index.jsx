@@ -17,10 +17,6 @@ function App({ data }) {
         Math.floor(window.innerHeight + document.documentElement.scrollTop) <=
         document.documentElement.offsetHeight - 4
       ) {
-        console.log(
-          Math.floor(window.innerHeight + document.documentElement.scrollTop)
-        );
-        console.log(document.documentElement.offsetHeight);
         return;
       }
       setItemsToShow((prevNum) => prevNum + 21);

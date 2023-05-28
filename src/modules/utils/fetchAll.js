@@ -23,7 +23,6 @@ async function fetchAllVenues() {
     }
     break;
   }
-  console.log(results);
   return results;
 }
 
