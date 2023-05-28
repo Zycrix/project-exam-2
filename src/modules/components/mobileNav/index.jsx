@@ -2,6 +2,13 @@ import React from "react";
 import * as s from "../../styles/header";
 import * as c from "../../styles/common";
 import { Link } from "react-router-dom";
+
+/**
+ * Function that returns the mobile navigation component
+ * @param {function} toggleDropdown Function for toggling the dropdown menu
+ * @param {boolean} loggedIn Boolean for checking if the user is logged in
+ * @returns The mobile navigation component
+ */
 function App({ toggleDropdown, loggedIn }) {
   return (
     <s.IconContainer>

@@ -3,7 +3,15 @@ import * as s from "../../../../styles/header";
 import * as c from "../../../../styles/common";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Function that returns the dropdown component
+ * @param {boolean} props.open Boolean for checking if the dropdown is open
+ * @param {string} props.source String for checking what button opened the dropdown
+ * @param {boolean} props.manager Boolean for checking if the user is a manager
+ * @returns A dropdown component
+ */
 function App(props) {
+  //Get the current path to set the active class
   const path = window.location.hash;
   const [open, setOpen] = useState(false);
   let name = "";

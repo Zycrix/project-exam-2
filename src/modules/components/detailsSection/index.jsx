@@ -2,6 +2,13 @@ import React from "react";
 import * as s from "../../styles/specific";
 import fixDate from "../../utils/fixDate";
 import locationAvailable from "../../utils/locationAvailable";
+
+/**
+ * Returns the details section component for the venue page
+ * @param {object} props.data Object that contains the venue data
+ * @returns Details section component
+ */
+
 function App(props) {
   const data = props.data;
   return (

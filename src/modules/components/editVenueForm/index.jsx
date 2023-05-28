@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/specific";
 
+/**
+ * Function that allows the user to edit a venue
+ * @param {array} props.data Array that contains all the users venues
+ * @param {string} props.id String that contains the venue ID
+ * @returns The edit venue form component
+ */
 function App(props) {
   const [venue, setVenue] = useState({});
   const [general, setGeneral] = useState(false);
@@ -20,31 +26,38 @@ function App(props) {
     formState: { errors },
   } = useForm();
 
+  //Find the venue to edit based on the ID
   useEffect(() => {
     const findVenue = props.data.find((item) => item.id === props.id);
     setVenue(findVenue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
+  //Set the images
   useEffect(() => {
     setImages(venue?.media);
   }, [venue]);
+
+  //Toggle the general section
   function toggleGeneral(e) {
     e.preventDefault();
     setGeneral(!general);
   }
 
+  //Toggle the details section
   function toggleDetails(e) {
     e.preventDefault();
     setDetails(!details);
   }
 
+  //Handle adding images to the gallery for preview
   function handleAddToGallery(e) {
     e.preventDefault();
     setImages([...images, image]);
     setImage("");
   }
 
+  //Handle removing images from the gallery
   function handleRemove(e, i) {
     e.preventDefault();
     const newImages = [...images];
@@ -52,11 +65,13 @@ function App(props) {
     setImages(newImages);
   }
 
+  //Toggle location section
   function toggleLocation(e) {
     e.preventDefault();
     setLocation(!location);
   }
 
+  //Submit the form
   async function submitted(data) {
     const endpoint = url + props.id;
     const body = {
@@ -81,6 +96,7 @@ function App(props) {
     }
   }
 
+  //Check if there are errors and toggle the sections if there are any
   useEffect(() => {
     if (
       errors?.name?.message?.length > 1 ||

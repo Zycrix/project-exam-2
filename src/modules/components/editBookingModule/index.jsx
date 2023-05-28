@@ -6,7 +6,13 @@ import getBooked from "../../utils/getBooked";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/bookings";
 
-function App({ id, close, update }) {
+/**
+ * Modal that allows the user to edit a booking
+ * @param {string} id String that contains the booking ID
+ * @param {function} close Function that closes the modal
+ * @returns A modal for editing a booking
+ */
+function App({ id, close }) {
   const today = new Date();
   const minDate = today.setDate(today.getDate() + 1);
   const [start, setStart] = useState(minDate);
@@ -15,10 +21,12 @@ function App({ id, close, update }) {
   const [data, setData] = useState(undefined);
   const booked = [];
 
+  //Close the modal
   function handleClose() {
     close();
   }
 
+  //Get the booking data and update the states
   useEffect(() => {
     const fetchData = async () => {
       const response = await callApi(url + id, "GET");
@@ -31,6 +39,7 @@ function App({ id, close, update }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //Get all the booked dates and exclude them from the datepicker
   if (data?.bookings?.length > 0) {
     const temp = [];
     for (let i = 0; i < data.bookings.length; i++) {
@@ -39,13 +48,13 @@ function App({ id, close, update }) {
       temp.push(getBooked(startDate, endDate));
     }
     temp.forEach((item) => {
-      //May create duplicates if someone don't check that new bookings are not duplicates but it wont affect the function of the datepicker so im just gonna leave it like this
       item.forEach((date) => {
         booked.push(date);
       });
     });
   }
 
+  //Submit the form
   async function handleSubmit(e) {
     e.preventDefault();
     const body = {
@@ -58,7 +67,6 @@ function App({ id, close, update }) {
       console.log(response);
       return false;
     }
-    //THIS SHOULD BE CHANGED TO A RERENDER RATHER THAN A RELOAD
     window.location.reload();
   }
   return (

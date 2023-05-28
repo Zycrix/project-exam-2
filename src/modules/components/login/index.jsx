@@ -8,6 +8,10 @@ import * as yup from "yup";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/login";
 
+/**
+ * @returns Returns the login component
+ */
+
 //Email validation regex
 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

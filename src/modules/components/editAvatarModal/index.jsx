@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import * as c from "../../styles/common";
 import * as s from "../../styles/profile";
 
+/**
+ * Modal that allows the user to change their avatar
+ * @param {function} handler Function that handles the form submission
+ * @param {function} toggle Function that toggles the modal
+ * @param {string} avatar String that contains the avatar URL
+ * @param {function} changeAvatar Function that handles the avatar URL change
+ * @returns A modal for changing the user avatar
+ */
 function App({ handler, toggle, avatar, changeAvatar }) {
   const [preview, setPreview] = useState(false);
+  //Handle the form submission
   function handleAvatarChange(e) {
     handler(e);
   }
+  //Toggle the modal
   function toggleModal() {
     toggle();
   }
+  //Toggle the preview
   function handlePreview(e) {
     e.preventDefault();
     setPreview(!preview);
   }
+  //Handle the avatar URL change
   function handleChange(val) {
     changeAvatar(val);
   }
