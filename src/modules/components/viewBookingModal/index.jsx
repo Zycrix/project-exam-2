@@ -6,7 +6,6 @@ import url from "../../utils/urls/specific";
 import fixDate from "../../utils/fixDate";
 function App({ id, close }) {
   const [venue, setVenue] = useState(null);
-  console.log(id);
   const endpoint = url + id;
   function closeModal() {
     close();
@@ -20,7 +19,6 @@ function App({ id, close }) {
     getVenue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(venue);
 
   return (
     <s.OverlayContent>

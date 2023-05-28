@@ -6,7 +6,6 @@ import Specific from "../../modules/components/specific";
 function App() {
   const id = window.location.href.split("/")[5];
   const endpoint = `${url}${id}?_bookings=true&_owner=true`;
-  console.log(id);
   const { data, loading } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
   title.innerHTML = `Holidaze | ${data.name}`;

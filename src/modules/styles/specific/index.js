@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-
+import * as common from "../common";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
@@ -53,15 +53,29 @@ export const ImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 20vh;
-  /* padding: 2rem 0; */
+  position: relative;
   img {
     max-width: 100%;
     min-height: 100%;
     object-fit: contain;
     aspect-ratio: 16/9;
     overflow: unset;
-    /* padding: 5rem; */
-    /* transform: scale(0.7); */
+  }
+  button {
+    position: absolute;
+    width: 5vh;
+    padding: 0;
+    aspect-ratio: 1/1;
+    display: none;
+    @media (min-width: 1200px) {
+      display: block;
+    }
+  }
+  .prev {
+    left: 0;
+  }
+  .next {
+    right: 0;
   }
 `;
 export const BookContainer = styled.div`
@@ -118,6 +132,18 @@ export const BookingForm = styled.form`
   button {
     margin-top: 1rem;
   }
+  .react-datepicker__day {
+    background-color: unset;
+  }
+  .react-datepicker__day--disabled {
+    background-color: red;
+    border-radius: 0.3rem;
+  }
+  .react-datepicker__day--in-range {
+    background-color: ${common.colors.primary};
+    border-radius: 0.3rem;
+    color: black;
+  }
 `;
 export const BookingModalClose = styled.div`
   position: absolute;
@@ -148,5 +174,24 @@ export const SuccessModal = styled.div`
   animation-timing-function: linear;
   span {
     font-size: 4rem;
+  }
+`;
+export const BreadCrumbs = styled.div`
+  width: 20%;
+  position: absolute;
+  bottom: 0;
+  right: 40%;
+  display: flex;
+  justify-content: center;
+  div {
+    width: 10px;
+    aspect-ratio: 1/1;
+    background-color: black;
+    margin: 0.5rem;
+    opacity: 0.6;
+    border-radius: 50%;
+  }
+  .active {
+    opacity: 1;
   }
 `;

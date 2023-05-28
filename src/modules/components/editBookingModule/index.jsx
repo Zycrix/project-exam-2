@@ -28,7 +28,6 @@ function App({ id, close, update }) {
       setEnd(new Date(response.dateTo));
     };
     fetchData();
-    console.log(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

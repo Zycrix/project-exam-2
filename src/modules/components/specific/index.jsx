@@ -9,7 +9,6 @@ import url from "../../utils/urls/bookings";
 import DetailsContainer from "../detailsSection";
 import OwnerSection from "../ownerSection";
 import placeholderImg from "../../../media/placeholder-img.gif";
-import { min } from "date-fns";
 
 function App(props) {
   const data = props.data;
@@ -22,6 +21,9 @@ function App(props) {
   const [guests, setGuests] = useState(undefined);
   const [success, setSuccess] = useState(false);
   const booked = [];
+  let touchStart;
+  let touchEnd;
+  const [count, setCount] = useState(0);
   if (data?.bookings?.length > 0) {
     const temp = [];
     for (let i = 0; i < data.bookings.length; i++) {
@@ -35,7 +37,6 @@ function App(props) {
       });
     });
   }
-  console.log(booked);
   function toggleBookingModal() {
     setBookingModal(!BookingModal);
   }
@@ -64,14 +65,77 @@ function App(props) {
     startDate.setDate(startDate.getDate() + 1);
     setEnd(startDate);
   }
+
+  function handleImgError(e) {
+    e.target.src = placeholderImg;
+  }
+
+  function handleStart(e) {
+    if (data.media.length < 2) return;
+    touchStart = e.changedTouches[0].clientX;
+  }
+
+  function next() {
+    if (count === data.media.length - 1) {
+      setCount(0);
+    } else {
+      setCount(count + 1);
+    }
+  }
+
+  function prev() {
+    if (count === 0) {
+      setCount(data.media.length - 1);
+    } else {
+      setCount(count - 1);
+    }
+  }
+  function handleEnd(e) {
+    if (data.media.length < 2) return;
+
+    touchEnd = e.changedTouches[0].clientX;
+
+    if (touchStart > touchEnd && touchStart - touchEnd > 25) {
+      next();
+    } else if (touchStart < touchEnd && touchEnd - touchStart > 25) {
+      prev();
+    }
+  }
+
   return (
     <s.Container>
       {data?.errors ? (
         <c.Text>{data.errors[0].message}</c.Text>
       ) : (
         <>
-          <s.ImgContainer>
-            <img src={data.media?.[0] || placeholderImg} alt="The venue" />
+          <s.ImgContainer
+            onTouchStart={(e) => handleStart(e)}
+            onTouchEnd={(e) => handleEnd(e)}
+          >
+            <c.PrimaryButton className="prev" onClick={() => prev()}>
+              <span className="material-symbols-outlined">arrow_back</span>
+            </c.PrimaryButton>
+            <img
+              src={data.media?.[count] || placeholderImg}
+              alt="The venue"
+              onError={(e) => handleImgError(e)}
+              className="main-img"
+            />
+            <c.PrimaryButton className="next" onClick={() => next()}>
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </c.PrimaryButton>
+            {data.media.length > 1 ? (
+              <s.BreadCrumbs className="breadcrumbs">
+                {data.media.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={index === count ? "active" : ""}
+                    ></div>
+                  );
+                })}
+              </s.BreadCrumbs>
+            ) : null}
           </s.ImgContainer>
           <c.MainHeading>{data.name}</c.MainHeading>
           <div className="info">
@@ -123,8 +187,6 @@ function App(props) {
                   dateFormat="dd/MM/yyyy"
                   excludeDates={booked}
                   required
-                  type="date"
-                  inputmode="none"
                 />
                 <label htmlFor="guests">Number of guests:</label>
                 <input

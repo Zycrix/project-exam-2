@@ -34,7 +34,6 @@ function useApi(url, method, body) {
         const data = await fetch(url, options);
         const json = await data.json();
         setData(json);
-        console.log("api");
       } catch (e) {
         console.log(e);
         setError(true);

@@ -24,7 +24,6 @@ function App(props) {
     if (guests === "") {
       searchParams.guests = 0;
     }
-    searchParams.guests = 0;
     const filteredVenues = venueFilter(props.data, searchParams);
     if (filteredVenues.length === 0) {
       setStatusMessage("No venues found");

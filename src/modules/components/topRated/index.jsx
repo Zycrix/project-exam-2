@@ -43,12 +43,10 @@ function App(props) {
   }
 
   function handleTouchStart(e) {
-    console.log(e.changedTouches[0].clientX);
     touchStart = e.changedTouches[0].clientX;
   }
 
   function handleTouchEnd(e) {
-    console.log(e.changedTouches[0].clientX);
     touchEnd = e.changedTouches[0].clientX;
 
     if (touchStart > touchEnd && touchStart - touchEnd > 25) {

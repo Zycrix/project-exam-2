@@ -29,8 +29,9 @@ function App() {
   const navigate = useNavigate();
   const { data, setData } = useApi(endpoint, "GET", null);
   const title = document.querySelector("title");
+
   title.innerHTML = `Holidaze | ${name}'s profile`;
-  console.log(data);
+
   useEffect(() => {
     if (data?.status === "Unauthorized") {
       setError(true);
@@ -83,6 +84,10 @@ function App() {
     setBookingId(id);
   };
 
+  function handleImgError(e) {
+    e.target.src = placeholderImg;
+  }
+
   return (
     <>
       {error === true ? (
@@ -98,7 +103,11 @@ function App() {
         <s.Container>
           <div className="info-container">
             <div className="img-container">
-              <img src={data.avatar || placeholderImg} alt="profile" />
+              <img
+                src={data.avatar || placeholderImg}
+                alt="profile"
+                onError={(e) => handleImgError(e)}
+              />
               <s.EditContainer className="overlay" show={user}>
                 <c.CleanButton onClick={(e) => setAvatarModal(true)}>
                   <span className="material-symbols-outlined">edit</span>

@@ -4,19 +4,36 @@ import * as c from "../../styles/common";
 import * as s from "../../styles/home";
 import scrollFix from "../../utils/scrollFix";
 import placeholderImg from "../../../media/placeholder-img.gif";
+
+/**
+ * Function for rendering a card component based on the input data.
+ * @param {object} props.data - An object containing data for the card.
+ * @param {string} props.slider - A string that determines if the card should be a slider card or a standard card.
+ * @param {number} props.i - A number that determines the index of the card.
+ * @returns A single card component.
+ */
+
 function App(props) {
   const navigate = useNavigate();
   const Slider = s.SliderCard;
   const Standard = s.StandardCard;
+  //Set default card type to standard.
   let Card = Standard;
 
+  //Handle click on card and scroll the page to top before navigating.
   function handleClick(id) {
     scrollFix();
     navigate(`/specific/${id}`);
   }
 
+  //If the slider prop is set to true, set the card type to slider.
   if (props.slider === "true") {
     Card = Slider;
+  }
+
+  //Insert placeholder image if the image fails to load.
+  function handleImgError(e) {
+    e.target.src = placeholderImg;
   }
 
   return (
@@ -37,6 +54,7 @@ function App(props) {
         <img
           src={props.venue.media[0] || placeholderImg}
           alt={props.venue.name}
+          onError={(e) => handleImgError(e)}
         />
         <div className="perks">
           {props.venue.meta.wifi ? <div className="wifi">WIFI</div> : null}

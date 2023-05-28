@@ -64,11 +64,9 @@ function App() {
     };
     const result = await callApi(url, "POST", body);
     setApiError(result?.errors ? true : false);
-    console.log(apiError);
     if (result?.errors) {
       console.log(result);
       apiErrors.push(result.errors[0].message);
-      console.log(apiErrors);
     } else {
       navigate("/specific/" + result.id);
     }

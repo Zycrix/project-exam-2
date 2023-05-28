@@ -3,7 +3,6 @@ import { useLocation } from "react-router";
 import * as c from "../../modules/styles/common";
 import fetchAll from "../../modules/utils/fetchAll";
 import VenueContainer from "../../modules/components/venueContainer";
-import VenueFilter from "../../modules/components/venueFilter";
 
 function App() {
   const location = useLocation();
@@ -34,7 +33,6 @@ function App() {
   return (
     <div>
       <c.MainHeading>{header}</c.MainHeading>
-      <VenueFilter />
       {data ? <VenueContainer data={data} /> : <p>Loading...</p>}
     </div>
   );

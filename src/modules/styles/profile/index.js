@@ -12,6 +12,9 @@ export const Container = styled.section`
     overflow: hidden;
     margin: 1.5rem auto;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       max-width: 100%;
       object-fit: cover;

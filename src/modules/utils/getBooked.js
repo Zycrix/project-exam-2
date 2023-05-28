@@ -15,7 +15,6 @@ function getBooked(start, end) {
     }
 
     const exists = booked.some((bookedDate) => isSameDate(bookedDate, date));
-    // console.log(exists);
     if (!exists) {
       booked.push(date);
     }

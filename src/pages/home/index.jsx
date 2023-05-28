@@ -41,8 +41,8 @@ function App() {
       <s.VenueSearchContainer>
         <VenueSearch data={data} />
       </s.VenueSearchContainer>
-      <TopRated data={topRated} />
-      <Recent data={data} />
+      <TopRated data={topRated} id="top-rated-container" />
+      <Recent data={data} id="recent-container" />
     </s.HomeContainer>
   );
 }

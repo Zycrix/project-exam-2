@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as c from "../../styles/common";
 import * as s from "../../styles/login";
@@ -7,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/login";
-import HandleZoom from "../handleZoom";
 
 //Email validation regex
 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,14 +48,10 @@ function App() {
     const form = document.querySelector(".form");
     body = data;
     body.email = body.email.toLowerCase();
-    console.log(body);
-    console.log(errors);
     form.reset();
-    console.log(remember);
     setRemember(false);
     const result = await callApi(url, "POST", body);
     if (result.accessToken) {
-      console.log(result);
       if (remember) {
         localStorage.setItem("token", result.accessToken);
         localStorage.setItem("name", result.name);
@@ -121,7 +116,6 @@ function App() {
           <c.FormButton type="submit">Log in</c.FormButton>
         </div>
       </s.LoginForm>
-      <HandleZoom />
     </>
   );
 }
