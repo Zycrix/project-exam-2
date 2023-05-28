@@ -29,6 +29,9 @@ export const OwnerContainer = styled.div`
   .owner-img-container {
     width: 40%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       max-width: 100%;
       object-fit: cover;
