@@ -8,6 +8,7 @@ import * as yup from "yup";
 import url from "../../utils/urls/register";
 import callApi from "../../utils/apiCall.js";
 import loginUrl from "../../utils/urls/login";
+
 //Email validation regex
 const regex = /^[^\s@]+@stud.noroff+\.no/;
 
@@ -36,7 +37,13 @@ const schema = yup.object({
     .min(3, "Min 3 characters"),
 });
 
-function App({ toggle, info }) {
+/**
+ * Function to render the register component and handle form validation
+ * @params {function} toggle Function to toggle the login/register form
+ * @returns Returns the register component
+ */
+
+function App({ toggle }) {
   const [role, setRole] = useState("customer");
   const [avatar, setAvatar] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

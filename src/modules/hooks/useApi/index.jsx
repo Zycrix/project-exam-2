@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Api call hook to handle api calls
+ * @param {string} url Endpoint to call
+ * @param {string} method Method to use
+ * @param {object} body Request body
+ * @returns The data, loading, error and error message
+ */
+
 function useApi(url, method, body) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

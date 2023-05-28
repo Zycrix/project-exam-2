@@ -3,9 +3,17 @@ import * as c from "../../styles/common";
 import * as s from "../../styles/home";
 import Card from "../card";
 
+/**
+ * A function to create the top rated venue slider section
+ * @param {array} props.data Array of venue objects
+ * @returns The top rated venue slider component
+ */
 function App(props) {
+  //Vars to store touch positions
   let touchStart;
   let touchEnd;
+
+  //Function to handle view next slide
   function next(e) {
     const current = document.querySelector("[data-state='active']");
     const next = document.querySelector("[data-state='next']");
@@ -23,6 +31,7 @@ function App(props) {
     }
   }
 
+  //Function to handle view previous slide
   function prev(e) {
     const current = document.querySelector("[data-state='active']");
     const next = document.querySelector("[data-state='next']");
@@ -42,10 +51,12 @@ function App(props) {
     }
   }
 
+  //Functions to handle touch start event
   function handleTouchStart(e) {
     touchStart = e.changedTouches[0].clientX;
   }
 
+  //Functions to handle touch end event
   function handleTouchEnd(e) {
     touchEnd = e.changedTouches[0].clientX;
 

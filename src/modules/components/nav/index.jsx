@@ -6,6 +6,10 @@ import Dropdown from "./components/dropdown";
 import MobileNav from "../mobileNav";
 import DesktopNav from "../desktopNav";
 
+/**
+ * Function that returns the header component
+ * @returns The header component
+ */
 function App() {
   const [open, setOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);

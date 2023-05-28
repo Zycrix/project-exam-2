@@ -1,3 +1,9 @@
+/**
+ * A function to check if location data is available
+ * @param {object} data The data object to be checked
+ * @returns A boolean value indicating if location data is available
+ */
+
 function locationAvailable(data) {
   if (
     data.location?.address !== "Unknown" ||

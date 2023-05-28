@@ -4,6 +4,13 @@ import * as s from "../../styles/profile";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/specific";
 import fixDate from "../../utils/fixDate";
+
+/**
+ * Function to create the view booking modal component to show bookings on a venue managers venue
+ * @param {string} id Venue id
+ * @param {function} close Function to close the modal
+ * @returns The view booking modal component
+ */
 function App({ id, close }) {
   const [venue, setVenue] = useState(null);
   const endpoint = url + id;

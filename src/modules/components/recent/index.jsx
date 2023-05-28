@@ -6,6 +6,11 @@ import recentFilter from "../../utils/updatedFilter";
 import { useNavigate } from "react-router-dom";
 import scrollFix from "../../utils/scrollFix";
 
+/**
+ * Function to render the recently posted venues section
+ * @param {array} props.data Array of venue objects
+ * @returns Returns the recently posted venues section
+ */
 function App(props) {
   const navigate = useNavigate();
   const recent = recentFilter(props.data);

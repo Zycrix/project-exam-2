@@ -3,6 +3,11 @@ import * as c from "../../../modules/styles/common";
 import venueFilter from "../../../modules/utils/venueSearchFilter";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * A function to create the venue search component
+ * @param {array} props.data The array of venue objects
+ * @returns The venue search component
+ */
 function App(props) {
   const [venues, setVenues] = useState("");
   const [guests, setGuests] = useState("");

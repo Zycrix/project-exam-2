@@ -1,3 +1,7 @@
+/**
+ * A function to toggle the options dropdown
+ * @param {object} e The event object
+ */
 function handleOptions(e) {
   e.preventDefault();
   const dropdown = document.querySelectorAll(".options-dropdown");

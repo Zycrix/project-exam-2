@@ -1,3 +1,10 @@
+/**
+ * Reusable api call function for when api calls need to be called conditionally
+ * @param {string} url Endpoint to call
+ * @param {string} method HTTP method to use
+ * @param {object} body Body of the request
+ * @returns The response from the api call
+ */
 async function callApi(url, method, body) {
   try {
     const options = {

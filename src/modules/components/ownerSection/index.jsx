@@ -4,6 +4,11 @@ import * as c from "../../styles/common";
 import { useNavigate } from "react-router";
 import placeholderImg from "../../../media/placeholder-img.gif";
 
+/**
+ * Function that returns the owner section component
+ * @param {object} props.data Object that contains the owner data
+ * @returns The owner section
+ */
 function App(props) {
   const owner = props.data;
   const navigate = useNavigate();

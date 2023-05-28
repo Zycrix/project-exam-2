@@ -7,6 +7,15 @@ import bookingUrl from "../../utils/urls/bookings";
 import fixDate from "../../utils/fixDate";
 import placeholderImg from "../../../media/placeholder-img.gif";
 
+/**
+ * Function to create the bookings section component
+ * @param {object} data Object that contains the user data
+ * @param {boolean} user Boolean that indicates if the user is viewing they're own profile
+ * @param {function} handleView Function that handles the view booking modal
+ * @param {function} handleEditBooking Function that handles the edit booking modal
+ * @param {function} setData Function that updates the data state
+ * @returns The bookings section component
+ */
 function App({ data, user, handleView, handleEditBooking, setData }) {
   async function handleCancel(id) {
     const response = await apiCall(bookingUrl + id, "DELETE", null);

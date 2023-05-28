@@ -1,6 +1,10 @@
 import callApi from "./apiCall";
 import url from "./urls/specific";
 
+/**
+ * Function to fetch all venues from the api
+ * @returns Object containing all venues
+ */
 async function fetchAllVenues() {
   let offSet = 0;
   const results = [];
@@ -19,6 +23,7 @@ async function fetchAllVenues() {
     }
     break;
   }
+  console.log(results);
   return results;
 }
 

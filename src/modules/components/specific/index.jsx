@@ -10,6 +10,12 @@ import DetailsContainer from "../detailsSection";
 import OwnerSection from "../ownerSection";
 import placeholderImg from "../../../media/placeholder-img.gif";
 
+/**
+ * Component that returns the venue specific component
+ * @param {object} props.data Data object that contains the venue data
+ * @param {string} props.id Venue id
+ * @returns The venue specific component
+ */
 function App(props) {
   const data = props.data;
   const today = new Date();

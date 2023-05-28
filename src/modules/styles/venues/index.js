@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import * as common from "../common";
 
 export const VenueContainer = styled.div`
   display: flex;
@@ -39,4 +40,18 @@ export const FilterContainer = styled.div`
 `;
 export const FilterDropdown = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
+`;
+export const ScrollTopContainer = styled.div`
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: ${common.colors.primary};
+  aspect-ratio: 1/1;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
 `;

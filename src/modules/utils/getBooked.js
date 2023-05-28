@@ -1,3 +1,10 @@
+/**
+ * A function to create an array with all the dates between two dates to get a complete list of booked dates
+ * @param {date} start Start date object
+ * @param {date} end End date object
+ * @returns An array containing all the dates between the start and end dates
+ */
+
 function getBooked(start, end) {
   const booked = [];
   const startDate = new Date(start);

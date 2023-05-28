@@ -5,6 +5,11 @@ import { useForm } from "react-hook-form";
 import callApi from "../../utils/apiCall";
 import url from "../../utils/urls/postVenue";
 import { useNavigate } from "react-router-dom";
+
+/**
+ * Function that returns the new venue form component
+ * @returns Returns the new venue form component
+ */
 function App() {
   const [general, setGeneral] = useState(false);
   const [details, setDetails] = useState(false);
@@ -19,22 +24,27 @@ function App() {
     formState: { errors },
   } = useForm();
   const apiErrors = [];
+
+  //Toggle general section
   function toggleGeneral(e) {
     e.preventDefault();
     setGeneral(!general);
   }
 
+  //Toggle details section
   function toggleDetails(e) {
     e.preventDefault();
     setDetails(!details);
   }
 
+  //Handle add image to gallery
   function handleAddToGallery(e) {
     e.preventDefault();
     setImages([...images, image]);
     setImage("");
   }
 
+  //Handle remove image from gallery
   function handleRemove(e, i) {
     e.preventDefault();
     const newImages = [...images];
@@ -42,11 +52,13 @@ function App() {
     setImages(newImages);
   }
 
+  //Toggle location section
   function toggleLocation(e) {
     e.preventDefault();
     setLocation(!location);
   }
 
+  //Handle submit
   async function Submitted(data) {
     const body = {
       name: data.name,
@@ -72,6 +84,7 @@ function App() {
     }
   }
 
+  //Check for errors and open sections if there are any
   useEffect(() => {
     if (
       errors?.name?.message?.length > 1 ||

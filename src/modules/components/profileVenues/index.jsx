@@ -4,6 +4,16 @@ import * as c from "../../styles/common";
 import handleOptions from "../../utils/toggleOptionsDropdown";
 import handleDelete from "../../utils/handleDeleteVenue";
 import placeholderImg from "../../../media/placeholder-img.gif";
+
+/**
+ * Function to create the venues section component
+ * @param {object} data Object that contains the user data
+ * @param {boolean} user Boolean that indicates if the user is viewing they're own profile
+ * @param {function} handleView Function that handles the view venue modal
+ * @param {function} handleViewBookings Function that handles the view bookings modal
+ * @param {function} handleUpdate Function that handles the update venue modal
+ * @returns The venues section component
+ */
 function App({ data, user, handleView, handleViewBookings, handleUpdate }) {
   return (
     <s.VenueSection show={data.venueManager}>
