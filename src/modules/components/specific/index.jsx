@@ -9,6 +9,7 @@ import url from "../../utils/urls/bookings";
 import DetailsContainer from "../detailsSection";
 import OwnerSection from "../ownerSection";
 import placeholderImg from "../../../media/placeholder-img.gif";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Component that returns the venue specific component
@@ -18,6 +19,7 @@ import placeholderImg from "../../../media/placeholder-img.gif";
  */
 function App(props) {
   const data = props.data;
+  const navigate = useNavigate();
   const today = new Date();
   const minDate = today.setDate(today.getDate() + 1);
   const minEnd = today.setDate(today.getDate() + 1);
@@ -30,6 +32,9 @@ function App(props) {
   let touchStart;
   let touchEnd;
   const [count, setCount] = useState(0);
+  const loggedIn =
+    window.sessionStorage.getItem("token") ||
+    window.localStorage.getItem("token");
   if (data?.bookings?.length > 0) {
     const temp = [];
     for (let i = 0; i < data.bookings.length; i++) {
@@ -118,18 +123,22 @@ function App(props) {
             onTouchStart={(e) => handleStart(e)}
             onTouchEnd={(e) => handleEnd(e)}
           >
-            <c.PrimaryButton className="prev" onClick={() => prev()}>
-              <span className="material-symbols-outlined">arrow_back</span>
-            </c.PrimaryButton>
+            {data.media.length > 1 ? (
+              <c.PrimaryButton className="prev" onClick={() => prev()}>
+                <span className="material-symbols-outlined">arrow_back</span>
+              </c.PrimaryButton>
+            ) : null}
             <img
               src={data.media?.[count] || placeholderImg}
               alt="The venue"
               onError={(e) => handleImgError(e)}
               className="main-img"
             />
-            <c.PrimaryButton className="next" onClick={() => next()}>
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </c.PrimaryButton>
+            {data.media.length > 1 ? (
+              <c.PrimaryButton className="next" onClick={() => next()}>
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </c.PrimaryButton>
+            ) : null}
             {data.media.length > 1 ? (
               <s.BreadCrumbs className="breadcrumbs">
                 {data.media.map((item, index) => {
@@ -209,11 +218,19 @@ function App(props) {
                 />
                 <c.FormButton>Book</c.FormButton>
               </s.BookingForm>
-              <s.BookingModalClose>
+              <s.BookingModalClose color={loggedIn ? "black" : "white"}>
                 <c.CleanButton onClick={toggleBookingModal}>
                   <span className="material-symbols-outlined">close</span>
                 </c.CleanButton>
               </s.BookingModalClose>
+              {loggedIn ? null : (
+                <s.LoginOverlay>
+                  <c.Text>Please login to book this venue.</c.Text>
+                  <c.PrimaryButton onClick={() => navigate("/login")}>
+                    Log in
+                  </c.PrimaryButton>
+                </s.LoginOverlay>
+              )}
             </s.BookingModalContent>
           </s.BookingModal>
           <s.SuccessModal show={success}>
