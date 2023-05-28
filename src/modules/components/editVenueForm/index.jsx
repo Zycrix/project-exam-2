@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import * as c from "../../styles/common";
 import * as s from "../../styles/newVenue";
 import { useNavigate } from "react-router-dom";
@@ -20,11 +19,6 @@ function App(props) {
   const [images, setImages] = useState([]);
   const [image, setImage] = useState("");
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   //Find the venue to edit based on the ID
   useEffect(() => {
@@ -33,9 +27,50 @@ function App(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
+  const [data, setData] = useState({
+    name: venue?.name,
+    price: venue?.price,
+    guests: venue?.maxGuests,
+    rating: venue?.rating,
+    description: venue?.description,
+    meta: {
+      wifi: venue?.meta?.wifi,
+      parking: venue?.meta?.parking,
+      breakfast: venue?.meta?.breakfast,
+      pets: venue?.meta?.pets,
+    },
+    location: {
+      address: venue?.location?.address,
+      city: venue?.location?.city,
+      country: venue?.location?.country,
+      zip: venue?.location?.zip,
+      continent: venue?.location?.continent,
+    },
+  });
   //Set the images
   useEffect(() => {
     setImages(venue?.media);
+    setData({
+      ...data,
+      name: venue?.name,
+      price: venue?.price,
+      guests: venue?.maxGuests,
+      rating: venue?.rating,
+      description: venue?.description,
+      meta: {
+        wifi: venue?.meta?.wifi,
+        parking: venue?.meta?.parking,
+        breakfast: venue?.meta?.breakfast,
+        pets: venue?.meta?.pets,
+      },
+      location: {
+        address: venue?.location?.address,
+        city: venue?.location?.city,
+        country: venue?.location?.country,
+        zip: venue?.location?.zip,
+        continent: venue?.location?.continent,
+      },
+    });
   }, [venue]);
 
   //Toggle the general section
@@ -72,7 +107,8 @@ function App(props) {
   }
 
   //Submit the form
-  async function submitted(data) {
+  async function submitted(e) {
+    e.preventDefault();
     const endpoint = url + props.id;
     const body = {
       name: data.name,
@@ -87,6 +123,13 @@ function App(props) {
         breakfast: data.meta.breakfast === "true" ? true : false,
         pets: data.meta.pets === "true" ? true : false,
       },
+      location: {
+        address: data.location.address,
+        city: data.location.city,
+        country: data.location.country,
+        zip: data.location.zip,
+        continent: data.location.continent,
+      },
     };
     const result = await callApi(endpoint, "PUT", body);
     if (result?.errors) {
@@ -96,104 +139,46 @@ function App(props) {
     }
   }
 
-  //Check if there are errors and toggle the sections if there are any
-  useEffect(() => {
-    if (
-      errors?.name?.message?.length > 1 ||
-      errors?.price?.message?.length > 1 ||
-      errors?.guests?.message?.length > 1 ||
-      errors?.rating?.message?.length > 1 ||
-      errors?.description?.message?.length > 1
-    ) {
-      setGeneral(true);
-      setDetails(true);
-    }
-  }, [errors]);
-
   return (
     <>
-      <s.Form onSubmit={handleSubmit((data) => submitted(data))}>
+      <s.Form onSubmit={(e) => submitted(e)}>
         <s.Margin>
           <s.DropdownButton onClick={(e) => toggleGeneral(e)} open={general}>
             <p>General information</p>
             <span className="material-symbols-outlined">expand_more</span>
           </s.DropdownButton>
           <s.DropdownContainer show={general}>
-            {errors?.name?.message?.length > 1 ? (
-              <p className="error">{errors?.name?.message}</p>
-            ) : null}
             <s.Label htmlFor="name">Venue name</s.Label>
             <c.StandardInput
               type="text"
               placeholder="Venue name"
               id="name"
-              defaultValue={venue?.name}
-              {...register("name", {
-                required: "Please enter a venue name",
-                minLength: {
-                  value: 3,
-                  message: "Venue name must be at least 3 characters long",
-                },
-                maxLength: {
-                  value: 30,
-                  message: "Venue name must be less than 30 characters long",
-                },
-              })}
+              value={data.name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
             />
-            {errors?.price?.message?.length > 1 ? (
-              <p className="error">{errors?.price?.message}</p>
-            ) : null}
             <s.Label htmlFor="price">Price per night</s.Label>
             <c.StandardInput
               type="number"
               placeholder="Price per night"
               id="price"
-              defaultValue={venue?.price}
-              {...register("price", {
-                required: "Please enter a price per night",
-                min: {
-                  value: 1,
-                  message: "Price per night must be at least 1$",
-                },
-              })}
+              value={data.price}
+              onChange={(e) => setData({ ...data, price: e.target.value })}
             />
-            {errors?.guests?.message?.length > 1 ? (
-              <p className="error">{errors?.guests?.message}</p>
-            ) : null}
             <s.Label htmlFor="guests">Max number of guests</s.Label>
             <c.StandardInput
               type="number"
               placeholder="Max number of guests"
               id="guests"
-              defaultValue={venue?.maxGuests}
-              {...register("guests", {
-                required: "Please enter a max number of guests",
-                min: {
-                  value: 1,
-                  message: "Max number of guests must be at least 1",
-                },
-              })}
+              value={data.guests}
+              onChange={(e) => setData({ ...data, guests: e.target.value })}
             />
-            {errors?.rating?.message?.length > 1 ? (
-              <p className="error">{errors?.rating?.message}</p>
-            ) : null}
             <s.Label htmlFor="rating">Venue rating</s.Label>
             <c.StandardInput
               type="number"
               placeholder="Rating out of 5"
               id="rating"
-              defaultValue={venue?.rating}
-              {...register("rating", {
-                required: "Please enter a rating",
-                min: {
-                  value: 0,
-                  message: "Rating must be at least 0",
-                },
-                max: {
-                  value: 5,
-                  message: "Rating cannot be more than 5",
-                },
-              })}
+              value={data.rating}
+              onChange={(e) => setData({ ...data, rating: e.target.value })}
             />
           </s.DropdownContainer>
         </s.Margin>
@@ -203,25 +188,14 @@ function App(props) {
             <span className="material-symbols-outlined">expand_more</span>
           </s.DropdownButton>
           <s.DropdownContainer show={details}>
-            {errors?.description?.message?.length > 1 ? (
-              <p className="error">{errors?.description?.message}</p>
-            ) : null}
             <s.Label htmlFor="description">Description</s.Label>
             <s.TextArea
               placeholder="Description"
               id="description"
-              defaultValue={venue?.description}
-              {...register("description", {
-                required: "Please enter a description",
-                minLength: {
-                  value: 10,
-                  message: "Description must be at least 10 characters long",
-                },
-                maxLength: {
-                  value: 1000,
-                  message: "Description must be less than 1000 characters long",
-                },
-              })}
+              value={data.description}
+              onChange={(e) =>
+                setData({ ...data, description: e.target.value })
+              }
             />
             <s.Margin className="included">
               <s.Label htmlFor="included">Perks</s.Label>
@@ -231,8 +205,13 @@ function App(props) {
                     type="checkbox"
                     id="wifi"
                     value={true}
-                    defaultChecked={venue?.meta?.wifi}
-                    {...register("meta.wifi")}
+                    defaultChecked={data.meta.wifi}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        meta: { ...data.meta, wifi: e.target.value },
+                      })
+                    }
                   />
                   <label htmlFor="wifi">Wifi</label>
                 </div>
@@ -241,8 +220,13 @@ function App(props) {
                     type="checkbox"
                     id="parking"
                     value={true}
-                    defaultChecked={venue?.meta?.parking}
-                    {...register("meta.parking")}
+                    defaultChecked={data.meta.parking}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        meta: { ...data.meta, parking: e.target.value },
+                      })
+                    }
                   />
                   <label htmlFor="parking">Parking</label>
                 </div>
@@ -251,8 +235,13 @@ function App(props) {
                     type="checkbox"
                     id="breakfast"
                     value={true}
-                    defaultChecked={venue?.meta?.breakfast}
-                    {...register("meta.breakfast")}
+                    defaultChecked={data.meta.breakfast}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        meta: { ...data.meta, breakfast: e.target.value },
+                      })
+                    }
                   />
                   <label htmlFor="breakfast">Breakfast</label>
                 </div>
@@ -261,8 +250,13 @@ function App(props) {
                     type="checkbox"
                     id="pets"
                     value={true}
-                    defaultChecked={venue?.meta?.pets}
-                    {...register("meta.pets")}
+                    defaultChecked={data.meta.pets}
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        meta: { ...data.meta, pets: e.target.value },
+                      })
+                    }
                   />
                   <label htmlFor="pets">Pets allowed</label>
                 </div>
@@ -310,40 +304,65 @@ function App(props) {
               type="text"
               placeholder="Address(Optional)"
               id="address"
-              defaultValue={venue?.location?.address}
-              {...register("address")}
+              value={data.location.address}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  location: { ...data.location, address: e.target.value },
+                })
+              }
             />
             <s.Label htmlFor="city">City</s.Label>
             <c.StandardInput
               type="text"
               placeholder="City(Optional)"
               id="city"
-              defaultValue={venue?.location?.city}
-              {...register("city")}
+              value={data.location.city}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  location: { ...data.location, city: e.target.value },
+                })
+              }
             />
             <s.Label htmlFor="zip">Zip code</s.Label>
             <c.StandardInput
               type="text"
               placeholder="Zip code(Optional)"
               id="zip"
-              defaultValue={venue?.location?.zip}
-              {...register("zip")}
+              value={data.location.zip}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  location: { ...data.location, zip: e.target.value },
+                })
+              }
             />
             <s.Label htmlFor="country">Country</s.Label>
             <c.StandardInput
               type="text"
               placeholder="Country(Optional)"
               id="country"
-              defaultValue={venue?.location?.country}
-              {...register("country")}
+              value={data.location.country}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  location: { ...data.location, country: e.target.value },
+                })
+              }
             />
             <s.Label htmlFor="continent">Continent</s.Label>
             <c.StandardInput
               type="text"
               placeholder="Continent(Optional)"
               id="continent"
-              defaultValue={venue?.location?.continent}
-              {...register("continent")}
+              value={data.location.continent}
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  location: { ...data.location, continent: e.target.value },
+                })
+              }
             />
           </s.DropdownContainer>
         </s.Margin>
