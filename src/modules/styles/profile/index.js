@@ -83,7 +83,7 @@ export const OverlayContent = styled.div`
   box-sizing: border-box;
   top: 50%;
   left: 50%;
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: scroll;
   transform: translate(-50%, -50%);
   form {
