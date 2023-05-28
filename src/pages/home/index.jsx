@@ -39,7 +39,7 @@ function App() {
         <c.CenteredText>Find your next adventure</c.CenteredText>
       </div>
       <s.VenueSearchContainer>
-        <VenueSearch data={data} />
+        <VenueSearch />
       </s.VenueSearchContainer>
       <TopRated data={topRated} id="top-rated-container" />
       <Recent data={data} id="recent-container" />

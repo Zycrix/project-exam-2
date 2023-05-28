@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as c from "../../../modules/styles/common";
 import venueFilter from "../../../modules/utils/venueSearchFilter";
 import { useNavigate } from "react-router-dom";
-
+import fetchAllVenues from "../../../modules/utils/fetchAll";
 /**
  * A function to create the venue search component
- * @param {array} props.data The array of venue objects
  * @returns The venue search component
  */
-function App(props) {
+function App() {
   const [venues, setVenues] = useState("");
   const [guests, setGuests] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const navigate = useNavigate();
   const [statusMessage, setStatusMessage] = useState("");
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    const call = async () => {
+      const response = await fetchAllVenues();
+      setData(response);
+    };
+    call();
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (venues === "") {
@@ -29,7 +38,7 @@ function App(props) {
     if (guests === "") {
       searchParams.guests = 0;
     }
-    const filteredVenues = venueFilter(props.data, searchParams);
+    const filteredVenues = venueFilter(data, searchParams);
     if (filteredVenues.length === 0) {
       setStatusMessage("No venues found");
       return;
